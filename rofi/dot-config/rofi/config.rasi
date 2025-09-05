@@ -1,0 +1,9 @@
+// @theme "rounded-gnome"
+
+@theme "theme.rasi"
+
+configuration {
+  modes: "drun,window,ssh";
+  terminal: "kitty";
+  sorting-method: "fzf";
+}
