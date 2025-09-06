@@ -10,7 +10,7 @@ end
 
 function generate_color
   set wp (swww query | sed -n 's/.*image: \(.*\)$/\1/p')
-  matugen image $wp -m $THEME
+  matugen image $wp -m $THEME -t scheme-expressive 
 end
 
 switch $argv[1]
@@ -21,8 +21,7 @@ switch $argv[1]
             set -U THEME "light"
         end
 
-        set wp (swww query | sed -n 's/.*image: \(.*\)$/\1/p')
-        matugen image $wp -m $THEME
+        generate_color
 
         # refresh waybar module via signal
         # pkill -RTMIN+3 waybar
