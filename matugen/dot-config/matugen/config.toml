@@ -36,9 +36,9 @@ post_hook = "~/.config/matugen/scripts/gtk.fish {{mode}}"
 input_path = 'templates/gtk-colors.css'
 output_path = '~/.config/gtk-4.0/colors.css'
 
-[templates.starship]
-input_path = 'templates/starship-colors.toml'
-output_path = '~/.config/starship.toml'
+# [templates.starship]
+# input_path = 'templates/starship-colors.toml'
+# output_path = '~/.config/starship.toml'
 
 [templates.btop]
 input_path = 'templates/btop.theme'

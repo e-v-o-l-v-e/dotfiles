@@ -10,21 +10,17 @@ end
 
 function generate_color
   set wp (swww query | sed -n 's/.*image: \(.*\)$/\1/p')
-  matugen image $wp -m $THEME -t scheme-expressive 
+  matugen image $wp -m $THEME # -t scheme-expressive 
+  kill -SIGUSR1 (pgrep kitty) # for some 
 end
 
 switch $argv[1]
     case --toggle
         if test "$THEME" = "light"
-            set -U THEME "dark"
+            fish ~/.config/waybar/theme.fish dark
         else
-            set -U THEME "light"
+            fish ~/.config/waybar/theme.fish light
         end
-
-        generate_color
-
-        # refresh waybar module via signal
-        # pkill -RTMIN+3 waybar
 
         print_status
 

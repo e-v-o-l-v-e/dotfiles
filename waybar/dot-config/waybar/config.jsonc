@@ -46,8 +46,8 @@
         "max-length": 25,
         "player-icons": {
           "default": "󰎆 ",
-          "cmus": " ",
-          "mpv": "🎵",
+          // "cmus": " ",
+          // "mpv": "🎵",
           "vlc": "🎬",
           "spotify": " "
         }
@@ -78,6 +78,7 @@
         "format-tr": "trq",
         "on-click": "hyprctl switchxkblayout vxe-v87-vxe-v87 next"
     },
+
     "custom/theme": {
       "exec": "fish ~/.config/waybar/theme.fish --status",
       "on-click": "fish ~/.config/waybar/theme.fish --toggle",
