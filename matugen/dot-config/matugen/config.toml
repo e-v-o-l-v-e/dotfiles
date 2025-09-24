@@ -43,3 +43,14 @@ output_path = '~/.config/gtk-4.0/colors.css'
 [templates.btop]
 input_path = 'templates/btop.theme'
 output_path = '~/.config/btop/themes/matugen.theme'
+
+[templates.zellij]
+input_path = 'templates/zellij.kdl'
+output_path = '~/.config/zellij/themes/matugen.kdl'
+
+[config]
+
+[templates.pywalfox]
+input_path = 'templates/pywalfox-colors.json'
+output_path = '~/.cache/wal/colors.json'
+post_hook = 'pywalfox update'
