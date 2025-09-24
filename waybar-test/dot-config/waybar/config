@@ -1,0 +1,175 @@
+{
+  "layer": "top",
+  "height": 37,
+  "spacing": 5,
+  // Choose the order of the modules
+  "modules-left": ["image", "hyprland/workspaces", "mpris"],
+  "modules-center": ["clock"],
+  "modules-right": [
+    "group/tray",
+    "power-profiles-daemon",
+    "pulseaudio",
+    "group/network",
+    "battery",
+    "custom/notification",
+    "custom/power"
+  ],
+  "hyprland/window": {
+    "separate-outputs": false
+  },
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "on-click": "activate",
+    "format-icons": {
+      "1": "󰌽",
+      "2": "󰮯",
+      "3": "",
+      "4": "",
+      "5": "󰣇",
+      "urgent": "",
+      "active": "",
+      "default": ""
+    },
+    "sort-by-number": true,
+    "persistent-workspaces": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": []
+    }
+  },
+
+  "group/tray": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 500,
+      "transition-left-to-right": false,
+      "click-to-reveal": false
+    },
+    "modules": [ "custom/tray-drawer", "tray", "bluetooth", "network" ],
+  },
+
+  "tray": {
+    "spacing": 10
+  },
+
+  "custom/tray-drawer": {
+    "format": "",
+    "tooltip": false
+  },
+
+
+  "clock": {
+    "tooltip-format": "{:%A, %B %d, %Y}",
+    "format": "{:%H:%M}"
+  },
+  "battery": {
+    "states": {
+      "warning": 40
+    },
+    "format": "{capacity}% {icon}",
+    "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+    "format-charging": "󰂄 {capacity}%",
+    "format-warning": "󰂃 {capacity}%",
+    "tooltip-format": "{capacity}%"
+  },
+
+  "network": {
+    //"format-wifi": "{}",
+    "format-wifi": "{essid}",
+    "format-ethernet": "",
+    "format-disconnected": "",
+    "tooltip-format": "{ipaddr}",
+    "tooltip-format-ethernet": "{ifname} ",
+    "on-click": "hyprctl dispatch exec '[float]' '$TERMINAL -e nmtui'"
+  },
+
+  "pulseaudio": {
+    // "scroll-step": 5, // %, can be a float
+    "format": "{icon}",
+    "format-muted": "",
+    "format-icons": {
+      "default": ["", "", ""]
+    },
+    "tooltip-format": "{volume}% volume",
+    "on-click": "pavucontrol",
+    // "on-scroll-up": "$HOME/.config/scripts/volume --inc",
+    // "on-scroll-down": "$HOME/.config/scripts/volume --dec",
+  },
+  "custom/power": {
+    "format": "󰐥",
+    "on-click": "wlogout"
+  },
+  "power-profiles-daemon": {
+    "format": "{icon}",
+    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+    "tooltip": true,
+    "format-icons": {
+      "default": "",
+      "performance": "",
+      "balanced": "",
+      "power-saver": ""
+    }
+  },
+  "image": {
+    "path": "/home/evolve/.config/waybar/nix.svg",
+    "size": 20,
+    "interval": 5,
+    "on-click": "zen-twilight https://search.nixos.org/packages?channel=unstable&",
+  },
+  "bluetooth": {
+	// "controller": "controller1", // specify the alias of the controller if there are more than 1 on the system
+	"format": "󰂯",
+	"format-disabled": "󰂲", // an empty format will hide the module
+	"format-connected": "󰂱",
+	"tooltip-format": "{controller_alias}\t{controller_address}",
+	"tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+	"tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+	"on-click": "blueman-manager",
+  },
+  "mpris": {
+      "format": "{status_icon} {title}",
+      "max-length": 25,
+      "status-icons": {
+        "playing": "▶",
+        "paused": "⏸"
+      },
+      "player-icons": {
+        "default": "󰎆 ",
+        // "cmus": " ",
+        // "mpv": "🎵",
+        "vlc": "🎬",
+        "spotify": " "
+      }
+  },
+  "custom/notification": {
+    "tooltip": false,
+    "format": "{} {icon}",
+    "format-icons": {
+      "notification": "󱅫",
+      "none": "",
+      "dnd-notification": " ",
+      "dnd-none": "󰂛",
+      "inhibited-notification": " ",
+      "inhibited-none": "",
+      "dnd-inhibited-notification": " ",
+      "dnd-inhibited-none": " "
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "sleep 0.1 && swaync-client -t -sw",
+    "on-click-right": "sleep 0.1 && swaync-client -d -sw",
+    "escape": true
+  },
+  "custom/weather": {
+  "exec": "~/.config/scripts/weather",
+  "interval": 3600,
+  "format": "{}",
+  "return-type": "text"
+}
+
+}
+}
+
+// vim: ft=jsonc
