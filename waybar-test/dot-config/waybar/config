@@ -7,7 +7,6 @@
   "modules-center": ["clock"],
   "modules-right": [
     "group/tray",
-    "power-profiles-daemon",
     "pulseaudio",
     "group/network",
     "battery",
@@ -65,13 +64,13 @@
   },
   "battery": {
     "states": {
-      "warning": 40
+      "warning": 15
     },
     "format": "{capacity}% {icon}",
     "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
     "format-charging": "󰂄 {capacity}%",
     "format-warning": "󰂃 {capacity}%",
-    "tooltip-format": "{capacity}%"
+    "tooltip-format": "{time}"
   },
 
   "network": {

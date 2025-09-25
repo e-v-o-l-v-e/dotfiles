@@ -1,24 +1,17 @@
-@define-color background #fff8f6;
-@define-color crust #11111b; /* replaced with Matugen's surface_container_lowest #ffffff */
-@define-color surface2 #585b70; /* replaced with Matugen's on_surface_variant #53433e */
-@define-color blue #89b4fa; /* replaced with Matugen's primary_fixed_dim #ffb59c */
-@define-color mauve #cba6f7; /* replaced with Matugen's tertiary_fixed #f3e2a7 */
-@define-color red #f38ba8; /* replaced with Matugen's error #ba1a1a */
-@define-color peach #fab387; /* replaced with Matugen's primary_container #ffdbcf */
-@define-color green #a6e3a1; /* replaced with Matugen's tertiary #6a5e2f */
-@define-color text #cdd6f4; /* replaced with Matugen's on_surface #231917 */
+@import url("colors.css");
 
 * {
   font-family:
-    "JetBrainsMono NF",
-    "Symbols Nerd Font";
+    "Symbols Nerd Font",
+    "JetBrainsMono NF"
+    ;
   font-weight: bolder;
   font-size: 14px;
 }
 
 window#waybar {
   background-color: transparent;
-  color: @primary_fixed_dim;
+  color: @primary;
   transition-property: background-color;
   transition-duration: 0.5s;
 }
@@ -27,46 +20,37 @@ window#waybar.hidden {
   opacity: 0.2;
 }
 
-window#waybar.termite {
-  background-color: #3f3f3f;
-}
-
-window#waybar.chromium {
-  background-color: #000000;
-  border: none;
-}
-
 button {
   box-shadow: inset 0 -3px transparent;
   border: none;
   border-radius: 0;
 }
 
-#workspaces button:hover {
-  color: @primary_fixed_dim;
-  box-shadow: inherit;
-  text-shadow: inherit;
-  background: @surface_container_lowest;
-  border: @surface_container_lowest;
-}
-
 #workspaces button.empty {
-  color: #44475a;
+  color: @outline_variant;
 }
 
 #workspaces button {
   padding: 0 5px;
-  color: @on_surface_variant;
+  color: @tertiary;
   margin: 4px 0 4px 0;
   transition: color 200ms ease-in-out;
 }
 
+#workspaces button:hover {
+  color: @primary;
+  box-shadow: inherit;
+  text-shadow: inherit;
+  background: @surface_container_low;
+  border: @surface_container_low;
+}
+
 #workspaces button.selected {
-  color: @primary_fixed_dim;
+  color: @primary;
 }
 
 #workspaces button.active {
-  color: @tertiary_fixed;
+  color: @primary;
 }
 
 #workspaces button.urgent {
@@ -88,11 +72,11 @@ button {
 #network.disconnected,
 #wireplumber,
 #custom-pacman,
-#custom-power,
 #tray,
 #mode,
 #idle_inhibitor,
 #scratchpad,
+#custom-power,
 #mpd {
   padding: 0 6px;
   color: @on_surface;
@@ -106,10 +90,14 @@ button {
 }
 
 #pulseaudio {
-  padding: 0 10px;
-  color: @on_surface;
+  padding: 0 5px;
+  color: @primary;
   border-radius: 15px;
   margin: 5px 0;
+}
+
+#pulseaudio.muted {
+  color: @outline;
 }
 
 #window,
@@ -117,7 +105,7 @@ button {
   margin: 0 4px;
 }
 
-.modules-left>widget:first-child>#workspaces {
+.modules-left > widget:first-child > #workspaces {
   margin-left: 2px;
 }
 
@@ -126,23 +114,15 @@ button {
 }
 
 #custom-pacman {
-  color: @primary_container;
-}
-
-#pulseaudio {
-  color: @tertiary_fixed;
-}
-
-#pulseaudio.muted {
-  color: @on_surface_variant;
+  color: @secondary;
 }
 
 #network {
-  color: @primary_fixed_dim;
+  color: @primary;
 }
 
 #network.disconnected {
-  color: @on_surface_variant;
+  color: @surface_variant;
 }
 
 #network.ethernet {
@@ -159,20 +139,21 @@ button {
 }
 
 #custom-power {
-  color: @secondary;
+  color: @primary_container;
 }
 
 #bluetooth {
   margin-right: 10px;
+  margin-left: 10px;
   font-size: 17px;
-  color: white;
+  color: @on_surface;
 }
 
-#keyboard-state>label {
+#keyboard-state > label {
   padding: 0 5px;
 }
 
-#keyboard-state>label.locked {
+#keyboard-state > label.locked {
   background: rgba(0, 0, 0, 0.2);
 }
 
@@ -185,34 +166,37 @@ button {
 }
 
 .modules-left {
-  background-color: @surface_container_lowest;
+  background-color: @surface_container;
   border-radius: 10px;
   padding-right: 10px;
   margin: 5px 0 0 10px;
 }
 
 .modules-center {
-  background-color: @surface_container_lowest;
+  background-color: @surface_container;
   border-radius: 10px;
   padding: 0 10px;
   margin-top: 5px;
-  border: solid cyan 2px;
+  border: solid @primary 2px;
 }
 
 .modules-right {
-  background-color: @surface_container_lowest;
+  background-color: @surface_container;
   border-radius: 10px;
   padding: 0 10px;
   margin: 5px 10px 0 0;
 }
 
 #custom-spotify {
-  color: #6fcf97;
+  color: @tertiary_fixed_dim;
   padding-right: 10px;
 }
 
 #custom-notification {
-  color: white;
+  color: @on_surface;
   padding-right: 10px;
 }
 
+#custom-power {
+  color: @primary;
+}
