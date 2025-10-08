@@ -153,27 +153,17 @@ button {
   padding: 0 5px;
 }
 
-#keyboard-state > label.locked {
-  background: rgba(0, 0, 0, 0.2);
-}
-
-#scratchpad {
-  background: rgba(0, 0, 0, 0.2);
-}
-
-#scratchpad.empty {
-  background-color: transparent;
-}
-
 .modules-left {
-  background-color: @surface_container;
+  /* background-color: @surface_container; */
+  background-color: @inverse_primary;
   border-radius: 10px;
   padding-right: 10px;
   margin: 5px 0 0 10px;
 }
 
 .modules-center {
-  background-color: @surface_container;
+  /* background-color: @surface_container; */
+  background-color: @inverse_primary;
   border-radius: 10px;
   padding: 0 10px;
   margin-top: 5px;
@@ -181,7 +171,8 @@ button {
 }
 
 .modules-right {
-  background-color: @surface_container;
+  /* background-color: @surface_container; */
+  background-color: @inverse_primary;
   border-radius: 10px;
   padding: 0 10px;
   margin: 5px 10px 0 0;

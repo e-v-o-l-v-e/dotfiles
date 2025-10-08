@@ -1,12 +1,12 @@
 {
-    "position": "top",
+    "position": "bottom",
     "spacing": 4,
     "modules-left": ["hyprland/workspaces"],
     "modules-center": ["clock"],
     "modules-right": ["group/tray", "custom/theme", "mpris", "pulseaudio", "battery", "custom/exit"],
     "margin-top": 0,
-    "margin-left": 4,
-    "margin-right": 4,
+    "margin-left": 0,
+    "margin-right": 0,
     "margin-bottom": 0,
 
     "group/tray": {

@@ -1,13 +1,13 @@
 [config.wallpaper]
 command = "swww"
-arguments = ["img", "--transition-type", "center"]
+# arguments = ["img", "--transition-type", "center"]
 set = false
 
 
 [templates.waybar]
 input_path = './templates/colors.css'
 output_path = '~/.config/waybar/colors.css'
-post_hook = 'pkill -SIGUSR2 waybar'
+# post_hook = 'sleep 0.5; pkill -SIGUSR2 waybar'
 
 [templates.hyprland]
 input_path = './templates/hyprland-colors.conf'
@@ -18,10 +18,10 @@ post_hook = 'hyprctl reload'
 input_path = './templates/rofi-colors.rasi'
 output_path = '~/.config/rofi/colors.rasi'
 
-[templates.kitty]
-input_path = 'templates/kitty-colors.conf'
-output_path = '~/.config/kitty/colors.conf'
-post_hook = 'kill -SIGUSR1 (pgrep kitty)'
+# [templates.kitty]
+# input_path = 'templates/kitty-colors.conf'
+# output_path = '~/.config/kitty/colors.conf'
+# post_hook = 'kill -SIGUSR1 (pgrep kitty)'
 
 [templates.vesktop]
 input_path = 'templates/midnight-discord.css'
@@ -48,9 +48,6 @@ output_path = '~/.config/btop/themes/matugen.theme'
 input_path = 'templates/zellij.kdl'
 output_path = '~/.config/zellij/themes/matugen.kdl'
 
-[config]
-
-[templates.pywalfox]
-input_path = 'templates/pywalfox-colors.json'
-output_path = '~/.cache/wal/colors.json'
-post_hook = 'pywalfox update'
+[templates.zen]
+input_path = 'templates/zen-colors.css'
+output_path = '~/.zen/8g91a1lm.Default Profile/chrome/colors.css'
