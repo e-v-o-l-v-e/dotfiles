@@ -1,5 +1,8 @@
 # WIP README INCOMING
 
+
+## OUT OF DATE, big restructuration
+
 those are my dotfiles, not complete as i use home-manager to set up parts of my config, you can view it here : https://github.com/e-v-o-l-v-e/nix-config
 
 i manage these config with stow, i recommande to have a ~/.dotfiles or similar, in your home dir as it simplyfies the command

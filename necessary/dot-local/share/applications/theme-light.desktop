@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Light Theme
+Exec=/home/evolve/.local/bin/change-theme light
+Icon=󰛨
+Terminal=false

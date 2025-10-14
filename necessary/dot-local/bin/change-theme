@@ -1,0 +1,62 @@
+#!/usr/bin/env fish
+
+# defaults
+set default_name "gruvbox"
+set default_variant "light"
+set theme_dir ~/.dotfiles/themes
+
+# initialize defaults only if variables not set
+if not set -q theme_name
+    set -U theme_name $default_name
+end
+if not set -q theme_variant
+    set -U theme_variant $default_variant
+end
+
+# helper: check if theme exists
+function theme_exists
+    set -l name $argv[1]
+    set -l variant $argv[2]
+    test -e "$theme_dir/$name-$variant"
+end
+
+function set_theme
+  matugen image ~/.wallpaper -m $theme_variant -q
+  stow --dotfiles --dir ~/.dotfiles/themes --target ~ -D $theme_previous -S $theme
+  kill -SIGUSR1 (pgrep kitty)
+end
+
+set local_name $theme_name
+set local_variant $theme_variant
+
+switch (count $argv)
+    case 1
+        set arg $argv[1]
+        if test $arg = "light" -o $arg = "dark"
+            set local_variant $arg
+        else
+            set local_name $arg
+        end
+    case 2
+        set local_name $argv[1]
+        set local_variant $argv[2]
+    case '*'
+        echo "Usage: $argv[0] [theme|variant] [variant]"
+        exit 1
+end
+
+# validate theme
+if theme_exists $local_name $local_variant
+    set -U theme_previous $theme
+
+    set -U theme_name $local_name
+    set -U theme_variant $local_variant
+    set -U theme "$local_name-$local_variant"
+
+    set_theme
+    echo "theme set to: $theme"
+else
+    echo "Error: theme '$local_name-$local_variant' does not exist in $theme_dir"
+    exit 1
+end
+

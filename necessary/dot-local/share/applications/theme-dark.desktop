@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Dark Theme
+Exec=/home/evolve/.local/bin/change-theme dark
+Icon=
+Terminal=false
