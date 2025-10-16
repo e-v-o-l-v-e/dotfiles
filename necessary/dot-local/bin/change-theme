@@ -24,6 +24,7 @@ function set_theme
   matugen image ~/.wallpaper -m $theme_variant -q
   stow --dotfiles --dir ~/.dotfiles/themes --target ~ -D $theme_previous -S $theme
   kill -SIGUSR1 (pgrep kitty)
+  dconf write /org/gnome/desktop/interface/color-scheme "'prefer-$theme_variant'"
 end
 
 set local_name $theme_name

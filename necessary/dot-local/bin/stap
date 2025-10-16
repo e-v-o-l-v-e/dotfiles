@@ -1,0 +1,66 @@
+#!/usr/bin/env fish
+
+function print_help
+    echo "Usage: stap [-p PATH] [apps...]"
+    echo ""
+    echo "Options:"
+    echo "  -p, --path PATH     Path to your dotfiles directory (required once per system)"
+    echo "  -h, --help          Show this help message and exit"
+    echo ""
+    echo "Examples:"
+    echo "  stap -p ~/.dotfiles necessary"
+    echo "  stap hyprland gtk kitty"
+end
+
+function print_apps
+    \ls "$dots_path/apps"
+end
+
+if test (count $argv) -lt 1
+    echo "Usage: stap [-p path_to_dotfiles] app1 app2 ..."
+    exit
+end
+
+# Parse arguments
+set -l i 1
+while test $i -le (count $argv)
+    set arg $argv[$i]
+
+    if test \($arg = "-p"\) -o \($arg = "--path"\)
+        set -l next_index (math $i + 1)
+        if test $next_index -gt (count $argv)
+            echo "Error: Missing argument for $arg"
+            exit 1
+        end
+
+        set -U dots_path (realpath (string replace -r '^~' $HOME $argv[$next_index]))
+
+        set argv (remove $i $next_index $argv)
+        continue # no incrementation because argv is shorter
+    end
+
+    if test $arg = "-h" || test $arg = "--help"
+        print_help
+        exit
+    else if test $arg = "-l" || test $arg = "--list"
+        print_apps
+        exit
+    end
+
+    set i (math $i + 1)
+end
+
+if not set -q dots_path
+    echo "Please set your dotfiles folder: stap -p path"
+    exit
+end
+
+# Apply stow
+for a in $argv
+    if test $a = "necessary"
+        stow --dotfiles --dir $dots_path --target ~ -S necessary
+    else
+        stow --dotfiles --dir $dots_path/apps --target ~ -S $a
+    end
+end
+
