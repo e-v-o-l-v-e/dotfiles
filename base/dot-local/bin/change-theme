@@ -1,9 +1,14 @@
 #!/usr/bin/env fish
 
+if not set -q dots_path
+  echo "please set you dots path with stap -p dots_path"
+  exit
+end
+
 # defaults
 set default_name "gruvbox"
 set default_variant "light"
-set theme_dir ~/.dotfiles/themes
+set theme_dir "$dots_path/themes"
 
 # initialize defaults only if variables not set
 if not set -q theme_name
@@ -22,7 +27,7 @@ end
 
 function set_theme
   matugen image ~/.wallpaper -m $theme_variant -q
-  stow --dotfiles --dir ~/.dotfiles/themes --target ~ -D $theme_previous -S $theme
+  stow --dotfiles --dir $dots_path/themes --target ~ -D $theme_previous -S $theme
   kill -SIGUSR1 (pgrep kitty)
   dconf write /org/gnome/desktop/interface/color-scheme "'prefer-$theme_variant'"
 end
@@ -42,7 +47,7 @@ switch (count $argv)
         set local_name $argv[1]
         set local_variant $argv[2]
     case '*'
-        echo "Usage: $argv[0] [theme|variant] [variant]"
+        echo "Usage: change-theme [theme|variant] [variant]"
         exit 1
 end
 

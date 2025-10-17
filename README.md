@@ -1,34 +1,73 @@
-# WIP README INCOMING
+# WIP
 
+# My dotfiles
 
-## OUT OF DATE, big restructuration
+## Just gimme this
 
-those are my dotfiles, not complete as i use home-manager to set up parts of my config, you can view it here : https://github.com/e-v-o-l-v-e/nix-config
+1. Install
+```sh
+git clone https://github.com/e-v-o-l-v-e/dotfiles.git ~/.dotfiles
+stow --dotfiles --dir ~/.dotfiles --target ~ -S base
+```
+2. Enable
+```sh
+stap app1 [, app2, ...]
+change-theme gruvbox-dark
+```
 
-i manage these config with stow, i recommande to have a ~/.dotfiles or similar, in your home dir as it simplyfies the command
+## Structure
+```
+.
+├── base
+├── apps
+│   ├── hyprland
+│   ├── kitty
+│   └── etc...
+└── themes
+    ├── gruvbox-dark
+    ├── gruvbox-light
+    └── etc...
+```
 
-to install a package just 
+## Apps
 
-- copy the content of this repo to you ~/.dotfiles or equivalent
-- cd into it
-- execute `stow --dotfiles <package name>`
+The `apps` directory contains most of my applications' configurations, you can enable any config with 
+```sh
+stap kitty hyprland gtk
+```
 
-the package name is the dir name of the config you want to use
+stap is just a little fish script that wrap stow, and allow to easily set some variables, to use it you must run this command before :
+```sh
+stow --dotfiles --dir ~/.dotfiles --target ~ -S base
+```
 
-you can specify several packages in the same command
+> [!NOTE]
+> If you put the dotfiles elsewhere change `~/.dotfiles` to your location, and then run `stap -p [you-dots-path]`
 
-the `--dotfiles` arg is to convert the dot-config in each package to `.config`, don't forget it or it will create a `~/dot-config`
+This will make `stap` and `change-theme` commands available, given your `.local/bin` is in your $PATH, and add applications to easily use with your launcher.
 
-you can specify a target -- aka where to put the files -- with `-t <target_dir>`, by default stow will use its parent
+> [!WARNING]
+> Those are fish scripts, not bash script, make sure fish is installed if you want to use them!
 
-you can specify a source with `-d <source_dir>`, by default stow will the current dir
+If you don't want to use my scripts you can just use vanilla stow:
+```
+stow --dotfiles --dir ~/.dotfiles/apps --target ~ -S kitty hyprland
+```
 
-example command, setting up the waybar conf from any location :
+## Themes
 
-`stow --dotfiles -t ~ -d .dotfiles -S waybar`
+Themes are located in the themes folder and follow the `$name-$variant` pattern, with variant one of dark or light.
 
-the `-S` is optionally, but i find it more readable that way
+Using `change-theme`:
+```
+change-theme [name] [variant]
+```
 
-you can also remove or restow
+> [!NOTE]
+> There is only gruvbox dark and light themes right now, next on the list is tokyonight
 
-stow works by creating symlinks, if you have any other question just RTM : `man stow`
+if you don't want to use `change-theme`:
+```sh
+stow --dotfiles --dir ~/.dotfiles/themes --target ~ -R gruvbox-dark -S gruvbox-light
+```
+
