@@ -7,21 +7,22 @@
 1. Install
 ```sh
 git clone https://github.com/e-v-o-l-v-e/dotfiles.git ~/.dotfiles
-stow --dotfiles --dir ~/.dotfiles --target ~ -S base
+stow --dotfiles --dir ~/.dotfiles/apps --target ~ -S base
 ```
-2. Enable
+
+2. Use
 ```sh
-stap app1 [, app2, ...]
+stev kitty hyprland gtk waybar rofi matugen waypaper wlogout
 change-theme gruvbox-dark
 ```
 
 ## Structure
 ```
 .
-├── base
 ├── apps
-│   ├── hyprland
+│   ├── base
 │   ├── kitty
+│   ├── hyprland
 │   └── etc...
 └── themes
     ├── gruvbox-dark
@@ -33,18 +34,18 @@ change-theme gruvbox-dark
 
 The `apps` directory contains most of my applications' configurations, you can enable any config with 
 ```sh
-stap kitty hyprland gtk
+stev kitty hyprland gtk
 ```
 
-stap is just a little fish script that wrap stow, and allow to easily set some variables, to use it you must run this command before :
+stev is just a little fish script that wrap stow, to use it you must run this command before :
 ```sh
-stow --dotfiles --dir ~/.dotfiles --target ~ -S base
+stow --dotfiles --dir ~/.dotfiles/apps --target ~ -S base
 ```
 
 > [!NOTE]
-> If you put the dotfiles elsewhere change `~/.dotfiles` to your location, and then run `stap -p [you-dots-path]`
+> If you put the dotfiles elsewhere change `~/.dotfiles` to your location, and then run `stev -p [you-dots-path]`
 
-This will make `stap` and `change-theme` commands available, given your `.local/bin` is in your $PATH, and add applications to easily use with your launcher.
+This will make `stev` and `change-theme` commands available, given your `.local/bin` is in your $PATH, and add applications to easily use with your launcher.
 
 > [!WARNING]
 > Those are fish scripts, not bash script, make sure fish is installed if you want to use them!

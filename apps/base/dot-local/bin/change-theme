@@ -10,7 +10,7 @@ set default_name "gruvbox"
 set default_variant "light"
 set theme_dir "$dots_path/themes"
 
-# initialize defaults only if variables not set
+# initialize defaults only if variables are not set, meaning first script run
 if not set -q theme_name
     set -U theme_name $default_name
 end
@@ -18,7 +18,7 @@ if not set -q theme_variant
     set -U theme_variant $default_variant
 end
 
-# helper: check if theme exists
+# fn to check if theme exists
 function theme_exists
     set -l name $argv[1]
     set -l variant $argv[2]
