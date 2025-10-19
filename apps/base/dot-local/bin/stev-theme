@@ -1,0 +1,129 @@
+#!/usr/bin/env fish
+
+if not set -q dots_path
+  echo "please set you dots path with stap -p dots_path"
+  exit
+end
+
+# defaults
+set default_name "gruvbox"
+set default_variant "light"
+set theme_dir "$dots_path/themes"
+set wp never
+
+# initialize defaults only if variables are not set, meaning first script run
+if not set -q theme_name;       set -U theme_name $default_name; end
+if not set -q theme_variant;    set -U theme_variant $default_variant; end
+if not set -q set_wallpaper;    set -U set_wallpaper $wp; else; set wp $set_wallpaper; end
+
+if not set -q wall_dir
+    set -U wall_dir $HOME/Pictures/Wallpapers
+    echo "No wallpaper directory defined, defaulting to ~/Pictures/Wallpapers/"
+end
+
+
+function theme_exists
+    set -l name $argv[1]
+    set -l variant $argv[2]
+    test -e "$theme_dir/$name-$variant"
+end
+
+function set_wallpaper_f
+    if test $wp != "never"
+        set wallpaper (random choice $wall_dir/$theme_name/*)
+        swww img $wallpaper
+        if type -q plasma-apply-wallpaperimage; plasma-apply-wallpaperimage $wallpaper; end
+
+        if test $wp = "once"; set wp "never"; end
+    end
+
+    set -U set_wallpaper $wp
+end
+
+function set_theme
+    stow --dotfiles --dir $dots_path/themes --target ~ -D $theme_previous -S $theme
+    kill -SIGUSR1 (pgrep kitty)
+    if type -q dconf; dconf write /org/gnome/desktop/interface/color-scheme "'prefer-$theme_variant'"; end
+    if type -q matugen && test -e ~/.wallpaper; matugen image ~/.wallpaper -m $theme_variant -q; end
+
+    set_wallpaper_f
+end
+
+function print_help
+    echo "Usage: stev-theme [theme|variant] [variant] [options]"
+    echo
+    echo "Arguments:"
+    echo "  theme                 Theme name (e.g. gruvbox, catppuccin)"
+    echo "  variant               Theme variant (light or dark)"
+    echo
+    echo "Options:"
+    echo "  -w, --wallpaper MODE  Set wallpaper behavior:"
+    echo "                        never  - do not stev wallpaper"
+    echo "                        once   - stev wallpaper just this time, then disable"
+    echo "                        always - always stev wallpaper when theme changes"
+    echo "  -h, --help            Show this help message and exit"
+    echo
+    echo "Examples:"
+    echo "  stev-theme gruvbox dark"
+    echo "  stev-theme catppuccin -w once"
+    echo "  stev-theme -w always"
+    echo
+end
+
+
+set local_name $theme_name
+set local_variant $theme_variant
+
+if test (count $argv) -lt 1 && test $set_wallpaper = "never"
+    echo "Usage: stev-theme [theme|variant] [variant] [-w|--wallpaper]"
+    exit 1
+end
+
+
+set i 1
+while test $i -le (count $argv)
+    set arg $argv[$i]
+    set next_arg $argv[(math $i + 1)]
+
+    if test $arg = "-h" || test $arg = "--help"
+        print_help
+        exit
+
+    else if test $arg = "--wall-dir" && test -e $next_arg
+        set -U wall_dir $next_arg
+        set i (math $i + 1)
+
+
+    else if test $arg = "light" || test $arg = "dark"
+        set local_variant $arg
+
+    else if test $arg = "-w" || test $arg = "--wallpaper"
+        if string match -rq $next_arg '^((never)|(once)|(always))$'
+            set wp $next_arg
+            set i (math $i + 1)
+        end
+
+    else
+        set local_name $argv[$i]
+    end
+
+    set i (math $i + 1)
+end
+
+
+if theme_exists $local_name $local_variant
+    set -U theme_previous $theme
+
+    set -U theme_name $local_name
+    set -U theme_variant $local_variant
+    set -U theme "$local_name-$local_variant"
+
+    set -U set_wallpaper $wp
+
+    set_theme
+    echo "theme set to: $theme"
+else
+    echo "Error: theme '$local_name-$local_variant' does not exist in $theme_dir"
+    exit 1
+end
+
