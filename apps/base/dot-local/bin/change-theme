@@ -26,10 +26,10 @@ function theme_exists
 end
 
 function set_theme
-  matugen image ~/.wallpaper -m $theme_variant -q
   stow --dotfiles --dir $dots_path/themes --target ~ -D $theme_previous -S $theme
   kill -SIGUSR1 (pgrep kitty)
-  dconf write /org/gnome/desktop/interface/color-scheme "'prefer-$theme_variant'"
+  if type -q dconf; dconf write /org/gnome/desktop/interface/color-scheme "'prefer-$theme_variant'"; end
+  if type -q matugen && test -e ~/.wallpaper; matugen image ~/.wallpaper -m $theme_variant -q; end
 end
 
 set local_name $theme_name

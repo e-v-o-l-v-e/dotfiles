@@ -4,6 +4,12 @@
 
 ## Just gimme this
 
+0. Dependencies
+- stow
+- fish (if you want to use my scripts)
+    - dconf if you care about gtk (you probably do)
+    - matugen if you want to dynamically generate colors for some app, you must symlink your wallpaper to ~/.wallpaper (my waypaper config is set to do so)
+
 1. Install
 ```sh
 git clone https://github.com/e-v-o-l-v-e/dotfiles.git ~/.dotfiles
