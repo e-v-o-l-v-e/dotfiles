@@ -30,9 +30,15 @@ end
 
 function set_wallpaper_f
     if test $wp != "never"
-        set wallpaper (random choice $wall_dir/$theme_name/*)
-        swww img $wallpaper
-        if type -q plasma-apply-wallpaperimage; plasma-apply-wallpaperimage $wallpaper; end
+      set wallpaper (random choice $wall_dir/$theme_name/*)
+        if type -q waypaper
+          waypaper --wallpaper $wallpaper
+        else 
+          swww img $wallpaper
+          if type -q plasma-apply-wallpaperimage; 
+            plasma-apply-wallpaperimage $wallpaper; 
+          end; 
+        end
 
         if test $wp = "once"; set wp "never"; end
     end

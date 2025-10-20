@@ -4,7 +4,7 @@ set wp $argv[1]
 
 ln -sf $wp ~/.wallpaper
 
-matugen image ~/.wallpaper -m $THEME # -t scheme-fruit-salad # -t scheme-expressive
+# matugen image ~/.wallpaper -m $THEME # -t scheme-fruit-salad # -t scheme-expressive
 
 # if test $THEME = "light"
 #   wal -i $wp -l
