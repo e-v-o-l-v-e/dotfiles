@@ -6,13 +6,13 @@ set = false
 
 [templates.waybar]
 input_path = './templates/colors.css'
-output_path = '~/.dotfiles/test-matugen/dot-config/waybar/colors.css'
+output_path = '~/.dotfiles/themes/tokyonight-dark/dot-config/waybar/colors.css'
 # post_hook = 'sleep 0.5; pkill -SIGUSR2 waybar'
 
-# [templates.hyprland]
-# input_path = './templates/hyprland-colors.conf'
-# output_path = '~/.config/hypr/matugen-colors.conf'
-# post_hook = 'hyprctl reload'
+[templates.hyprland]
+input_path = './templates/hyprland-colors.conf'
+output_path = '~/.config/hypr/matugen-colors.conf'
+post_hook = 'hyprctl reload'
 
 [templates.rofi]
 input_path = './templates/rofi-colors.rasi'

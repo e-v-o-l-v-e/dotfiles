@@ -1,0 +1,105 @@
+/*
+* Css Colors
+* Generated with Matugen
+*/
+
+    @define-color background #f7fbf1;
+
+    @define-color error #ba1a1a;
+
+    @define-color error_container #ffdad6;
+
+    @define-color inverse_on_surface #eff2e8;
+
+    @define-color inverse_primary #a3d397;
+
+    @define-color inverse_surface #2e322b;
+
+    @define-color on_background #191d17;
+
+    @define-color on_error #ffffff;
+
+    @define-color on_error_container #410002;
+
+    @define-color on_primary #ffffff;
+
+    @define-color on_primary_container #002202;
+
+    @define-color on_primary_fixed #002202;
+
+    @define-color on_primary_fixed_variant #265022;
+
+    @define-color on_secondary #ffffff;
+
+    @define-color on_secondary_container #111f0f;
+
+    @define-color on_secondary_fixed #111f0f;
+
+    @define-color on_secondary_fixed_variant #3c4b37;
+
+    @define-color on_surface #191d17;
+
+    @define-color on_surface_variant #42493f;
+
+    @define-color on_tertiary #ffffff;
+
+    @define-color on_tertiary_container #002022;
+
+    @define-color on_tertiary_fixed #002022;
+
+    @define-color on_tertiary_fixed_variant #1e4d51;
+
+    @define-color outline #73796e;
+
+    @define-color outline_variant #c2c8bc;
+
+    @define-color primary #3e6837;
+
+    @define-color primary_container #bef0b1;
+
+    @define-color primary_fixed #bef0b1;
+
+    @define-color primary_fixed_dim #a3d397;
+
+    @define-color scrim #000000;
+
+    @define-color secondary #53634e;
+
+    @define-color secondary_container #d6e8cd;
+
+    @define-color secondary_fixed #d6e8cd;
+
+    @define-color secondary_fixed_dim #baccb2;
+
+    @define-color shadow #000000;
+
+    @define-color source_color #7b7f77;
+
+    @define-color surface #f7fbf1;
+
+    @define-color surface_bright #f7fbf1;
+
+    @define-color surface_container #ecefe5;
+
+    @define-color surface_container_high #e6e9e0;
+
+    @define-color surface_container_highest #e0e4da;
+
+    @define-color surface_container_low #f2f5eb;
+
+    @define-color surface_container_lowest #ffffff;
+
+    @define-color surface_dim #d8dbd2;
+
+    @define-color surface_tint #3e6837;
+
+    @define-color surface_variant #dfe4d8;
+
+    @define-color tertiary #386569;
+
+    @define-color tertiary_container #bcebef;
+
+    @define-color tertiary_fixed #bcebef;
+
+    @define-color tertiary_fixed_dim #a0cfd3;
+
