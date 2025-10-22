@@ -28,6 +28,12 @@ function theme_exists
     test -e "$theme_dir/$name-$variant"
 end
 
+function print_themes
+  for dir in $dots_path/themes/*
+    echo (path basename $dir) | string replace "-" " "
+  end
+end
+
 function set_wallpaper_f
     if test $wp != "never"
       set wallpaper (random choice $wall_dir/$theme_name/*)
@@ -67,6 +73,7 @@ function print_help
     echo "                        never  - do not stev wallpaper"
     echo "                        once   - stev wallpaper just this time, then disable"
     echo "                        always - always stev wallpaper when theme changes"
+    echo "  -l, --list            Show availables themes and exit"
     echo "  -h, --help            Show this help message and exit"
     echo
     echo "Examples:"
@@ -93,6 +100,10 @@ while test $i -le (count $argv)
 
     if test $arg = "-h" || test $arg = "--help"
         print_help
+        exit
+
+    else if test $arg = "-l" || test $arg = "--list"
+        print_themes
         exit
 
     else if test $arg = "--wall-dir" && test -e $next_arg
