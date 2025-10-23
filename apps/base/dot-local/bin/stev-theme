@@ -120,6 +120,12 @@ while test $i -le (count $argv)
             set i (math $i + 1)
         end
 
+    else if test $arg = "-f" || test $arg = "--full-name"
+        set full_name (string split '-' $next_arg)
+        set local_name $full_name[1]
+        set local_variant $full_name[2]
+        set i (math $i + 1)
+
     else
         set local_name $argv[$i]
     end

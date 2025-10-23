@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Extend Display
+Exec=/home/evolve/.config/hypr/scripts/monitors.fish extended
+Icon=󰍺
+Terminal=false

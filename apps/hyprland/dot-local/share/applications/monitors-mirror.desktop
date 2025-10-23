@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Mirror Display
+Exec=/home/evolve/.config/hypr/scripts/monitors.fish mirror
+Icon=󰍹
+Terminal=false
