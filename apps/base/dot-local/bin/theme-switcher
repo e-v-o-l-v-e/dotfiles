@@ -1,0 +1,3 @@
+#!/usr/bin/env fish
+
+stev-theme (lsd $dots_path/themes | string replace "-" " " | rofi -dmenu | string split ' ')

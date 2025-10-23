@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
 Name=Light Theme
-Exec=/home/evolve/.local/bin/stev-theme light
+Exec = fish -c "stev-theme light"
 Icon=󰛨
 Terminal=false

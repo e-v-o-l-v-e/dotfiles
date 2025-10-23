@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Theme Switcher
+Exec=fish -c theme-switcher
+Icon=?
+Terminal=false

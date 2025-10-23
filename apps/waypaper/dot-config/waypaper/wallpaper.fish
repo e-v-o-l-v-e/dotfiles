@@ -1,5 +1,10 @@
 #!/usr/bin/env fish
 
+if test (count $argv) -ne 1
+  echo "Usage: wallpaper.fish wallpaper_path"
+  exit
+end
+
 set wp $argv[1]
 
 ln -sf $wp ~/.wallpaper
