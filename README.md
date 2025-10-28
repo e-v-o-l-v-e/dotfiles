@@ -6,8 +6,10 @@
 
 0. Dependencies
 - stow
-- fish (if you want to use my scripts)
+- fish (if you wish to use my scripts)
+    - fd
     - dconf if you care about gtk (you probably do)
+    - ripgrep isn't necessary but i recommend it nonetheless
     - matugen if you want to dynamically generate colors for some app, you must symlink your wallpaper to ~/.wallpaper (my waypaper config is set to do so)
 
 1. Install

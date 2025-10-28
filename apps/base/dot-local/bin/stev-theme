@@ -52,9 +52,21 @@ function set_wallpaper_f
     set -U set_wallpaper $wp
 end
 
+function set_nvim_theme
+    set -l name $argv[1]
+    set -l variant $argv[2]
+
+    set -U nvim_theme $name
+
+    for f in (fd "nvf|nvim" /run/user/1000/)
+        nvim --server $f --remote-send ":colorscheme $nvim_theme<cr>"
+    end
+end
+
 function set_theme
     stow --dotfiles --dir $dots_path/themes --target ~ -D $theme_previous -S $theme
     kill -SIGUSR1 (pgrep kitty)
+    set_nvim_theme $theme_name $theme_variant
     if type -q dconf; dconf write /org/gnome/desktop/interface/color-scheme "'prefer-$theme_variant'"; end
     if type -q matugen && test -e ~/.wallpaper; matugen image ~/.wallpaper -m $theme_variant -q; end
 
