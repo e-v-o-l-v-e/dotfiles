@@ -15,17 +15,22 @@ return {
       },
     },
     config = function()
+      vim.lsp.enable('nixd')
       vim.lsp.enable('lua_ls')
+
       vim.lsp.enable('ccls')
       vim.lsp.enable('laravel_ls')
       vim.lsp.enable('phpactor')
+      vim.lsp.enable('jdtls')
+      vim.lsp.enable('fish_lsp')
       -- vim.lsp.config('lua_ls', {
       -- })
 
       -- Register nvim-cmp lsp capabilities
-      vim.lsp.config("*", { capabilities = require("cmp_nvim_lsp").default_capabilities() })
+      -- vim.lsp.config("*", { capabilities = require("cmp_nvim_lsp").default_capabilities() })
+      vim.lsp.config("*", { capabilities = require('blink.cmp').get_lsp_capabilities()})
 
-      -- vim.keymap.set('n', '<space>ld', vim.lsp.buf.definition())
-    end,
+      -- vim.filetype.add( {extentions = {h = "c",},})
+   end,
   }
 }

@@ -30,6 +30,9 @@ return {
           require('telescope.themes').get_dropdown(),
         },
       },
+      defaults = {
+        file_ignore_patterns = { "node_modules", "bin", "build" },
+      },
     }
 
     pcall(telescope.load_extension, 'fzf')
@@ -80,7 +83,11 @@ return {
     vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
     vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
     vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files' })
-    vim.keymap.set('n', '<leader>b', builtin.buffers, { desc = '[ ] Find buffers' })
+    vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[S]earch Find [B]uffers' })
+    vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = 'Choose Buffer' })
+    vim.keymap.set('n', '<leader>st', builtin.treesitter, { desc = '[S]earch [T]reesitter Symbols' })
+
+    vim.keymap.set('n', '<leader>bs', builtin.buffers, { desc = ' [B]uffers [S]earch' })
 
     vim.keymap.set('n', '<leader>/', function()
       builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
