@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Kitty Session Picker
+Exec=fish -c kitty-session-picker
+Icon=?
+Terminal=false

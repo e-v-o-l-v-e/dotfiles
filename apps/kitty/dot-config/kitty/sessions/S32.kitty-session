@@ -1,0 +1,13 @@
+new_tab neovim 
+layout fat
+cd /home/evolve/Code/S32/
+title neovim 
+launch fish -c "nix develop ~/nix-config#c --command fish -C nvim"
+
+new_tab gradle
+layout fat
+cd /home/evolve/Code/S32/
+title make and test
+launch fish -c "nix develop ~/nix-config#c --command fish"
+
+focus_tab title:neovim
