@@ -4,19 +4,36 @@ return {
   -- version = "*", -- Pin Neorg to the latest stable release
   version = false,
   config = function()
-    require('neorg').setup()
+    require('neorg').setup({
 
-    -- vim.opt.rtp:prepend('~/.local/share/nvim/lazy-rocks/tree-sitter-norg/lib/lua/5.1/parser')
+      load = {
+        ["core.defaults"] = {},
+        ["core.dirman"] = {
+          config = {
+            workspaces = {
+              notes = "~/Notes",
+            },
+          },
+        },
+        ["core.export"] = {},
+        ["core.export.markdown"] = {},
+        ["core.export.html"] = {},
+        ["core.looking-glass"] = {},
+        ["core.keybinds"] = {},
+        ["core.summary"] = {},
+      },
+    })
 
-    -- vim.api.nvim_create_autocmd("FileType", {
-    --   pattern = { "norg", "neorg" },
-    --   callback = function()
-    --     if pcall(vim.treesitter.start) then
-    --       vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-    --       vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-    --     end
-    --   end,
-    -- })
+    -- fixes parser not launching for some reason
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = { "norg", "neorg" },
+      callback = function()
+        if pcall(vim.treesitter.start) then
+          vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end
+      end,
+    })
   end,
   dependencies = {
     'nvim-neorg/tree-sitter-norg',

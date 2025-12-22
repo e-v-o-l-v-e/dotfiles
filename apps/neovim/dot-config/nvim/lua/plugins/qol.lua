@@ -15,9 +15,12 @@ return {
   },
   {
     "abecodes/tabout.nvim",
+    enabled = true,
     lazy = false,
     config = function()
-      require("tabout").setup {}
+      require("tabout").setup {
+        ignore_beginning = true,
+      }
     end,
   }
 }

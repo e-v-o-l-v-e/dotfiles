@@ -6,6 +6,7 @@ require("config.lazy")
 -- vim.o.background = "light"
 
 vim.g.have_nerd_font = true
+vim.o.spell = false
 
 -- left collumns
 vim.o.number = true
@@ -76,6 +77,9 @@ vim.keymap.set('n', '<c-l>', '<c-w>l')
 
 vim.keymap.set('n', '<c-q>', '<c-w>q')
 
+vim.keymap.set('n', '<leader>v', ':vs<cr>', { desc = 'Split Window [V]ertically' })
+vim.keymap.set('n', '<leader>h', ':split<cr>', { desc = 'Split Window [H]orizontally' })
+
 -- lsp
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 vim.keymap.set('n', 'grf', ':lua vim.lsp.buf.format()<cr>' , { desc = 'Format buffer' })
@@ -110,7 +114,7 @@ end
 vim.keymap.set('n', '<leader>tv', function () kb_term('v') end, { desc = 'open terminal in vertical split window'})
 vim.keymap.set('n', '<leader>th', function () kb_term('h') end, { desc = 'open terminal in horizontal split window'})
 vim.keymap.set('n', '<c-t>', function () kb_term('h') end)
-vim.keymap.set('i', '<c-t>', function () kb_term('h') end)
+-- vim.keymap.set('i', '<c-t>', function () kb_term('h') end)
 
 -- AUTOCOMMAND --
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -120,5 +124,9 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.hl.on_yank()
   end,
 })
+
+-- disabled default keybinds
+-- vim.keymap.del("i", "<c-t>")
+
 
 require 'nvim-treesitter'.install { 'lua', 'nix', 'java', 'c', 'php', 'sql' }

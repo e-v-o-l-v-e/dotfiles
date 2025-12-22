@@ -15,14 +15,16 @@ return {
       },
     },
     config = function()
-      vim.lsp.enable('nixd')
       vim.lsp.enable('lua_ls')
+      vim.lsp.enable('nixd')
+      vim.lsp.enable('fish_lsp')
 
       vim.lsp.enable('ccls')
       vim.lsp.enable('laravel_ls')
       vim.lsp.enable('phpactor')
       vim.lsp.enable('jdtls')
-      vim.lsp.enable('fish_lsp')
+
+      vim.lsp.enable('gdscript')
       -- vim.lsp.config('lua_ls', {
       -- })
 

@@ -50,7 +50,8 @@ return {
           end
 
           local pieces = vim.split(prompt, '%s+', { trimempty = true })
-          local args = { 'rg', '--color=never', '--no-heading', '--with-filename', '--line-number', '--column', '--smart-case' }
+          local args = { 'rg', '--color=never', '--no-heading', '--with-filename', '--line-number', '--column',
+            '--smart-case' }
 
           if pieces[1] then
             vim.list_extend(args, { '-e', pieces[1] })
@@ -76,7 +77,6 @@ return {
     -- Keymaps
     vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
     vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-    vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
     vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
     vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
     vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
@@ -86,6 +86,10 @@ return {
     vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[S]earch Find [B]uffers' })
     vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = 'Choose Buffer' })
     vim.keymap.set('n', '<leader>st', builtin.treesitter, { desc = '[S]earch [T]reesitter Symbols' })
+
+    vim.keymap.set('n', '<leader>sf', function ()
+      builtin.find_files { find_command = { "fd", ".", "--type", "f", "--hidden", "--follow", "--exclude", ".git" } }
+    end, { desc = '[S]earch [F]iles' })
 
     vim.keymap.set('n', '<leader>bs', builtin.buffers, { desc = ' [B]uffers [S]earch' })
 
@@ -104,7 +108,7 @@ return {
     end, { desc = '[S]earch [/] in Open Files' })
 
     vim.keymap.set('n', '<leader>sn', function()
-      builtin.find_files { cwd = vim.fn.stdpath 'config' }
+      builtin.find_files { cwd = vim.fn.stdpath 'config', find_command = { "fd", ".lua", "--type", "f", "--hidden", "--follow", "--exclude", ".git" } }
     end, { desc = '[S]earch [N]eovim files' })
 
     -- Multigrep binding
