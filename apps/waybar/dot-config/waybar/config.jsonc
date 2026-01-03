@@ -1,88 +1,196 @@
 {
-    "position": "top",
-    "spacing": 4,
-    "modules-left": ["hyprland/workspaces"],
-    "modules-center": ["clock"],
-    "modules-right": ["group/tray", "custom/theme", "mpris", "pulseaudio", "battery", "custom/exit"],
-    "margin-top": 0,
-    "margin-left": 4,
-    "margin-right": 4,
-    "margin-bottom": 0,
+  "layer": "top",
+  "margin": "0 0 -5 0",
+  "position": "top",
+  "height": 24,
+  "spacing": 2,
 
-    "group/tray": {
-      "orientation": "horizontal",
-      "drawer": {
-        "transition-duration": 500,
-        "transition-left-to-right": false,
-        "click-to-reveal": false
+  "modules-left": ["hyprland/workspaces"],
+  "modules-center": ["clock"],
+  "modules-right": [
+    "group/tray", 
+    "battery", 
+    "pulseaudio", 
+    "bluetooth", 
+    "network"
+  ],
+
+
+  "group/tray": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 500,
+      "transition-left-to-right": false,
+      "click-to-reveal": false
+    },
+    "modules": [ "custom/tray-drawer", "tray" ]
+  },
+
+  "custom/tray-drawer": {
+    "format": "",
+    "tooltip": false
+  },
+
+
+  "mpris": {
+      "format": "{status_icon} {title}",
+      "max-length": 25,
+      "status-icons": {
+        "playing": "▶",
+        "paused": "⏸"
       },
-      "modules": ["custom/traybutton", "tray"],
-    },
+      "player-icons": {
+        "default": "󰎆 ",
+        // "cmus": " ",
+        // "mpv": "🎵",
+        "vlc": "🎬",
+        "spotify": " "
+      }
+  },
 
-    "tray": {
-      "icon-size": 15,
-      "spacing": 10
+  "hyprland/workspaces": {
+    "format": "<span size='larger'>{icon}</span>",
+    "on-click": "activate",
+    "format-icons": {
+      "active": "\uf444",
+      "default": "\uf4c3"
     },
-
-    "clock": {
-      "format": "{:%a %b %d %H:%M}",
-      "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-      "on-click": ""
-    },
-
-    "custom/traybutton": {
-      "format": "",
-      "tooltip": false
-    },
-
-    "pulseaudio": {
-        "format": "   {volume}%",
-        "format-muted": " ",
-        "on-click": "pavucontrol"
-    },
-
-    "mpris": {
-        "format": "{player_icon} {title}",
-        "max-length": 25,
-        "player-icons": {
-          "default": "󰎆 ",
-          // "cmus": " ",
-          // "mpv": "🎵",
-          "vlc": "🎬",
-          "spotify": " "
-        }
-    },
-
-    "battery": {
-      "bat": "BAT1",
-      "interval": 60,
-      "states": {
-        "warning": 30,
-        "critical": 15
-      },
-      "format": "{capacity}% {icon}",
-      "format-icons": ["", "", "", "", ""],
-      "max-length": 25
-    },
-
-    "custom/exit": {
-        "format": "",
-        "on-click": "wlogout",
-        "on-click-right": "hyprlock",
-        "tooltip-format": "Left: Power menu\nRight: Lock screen"
-    },
-
-    "hyprland/language": {
-        "format": "\uf11c   {}",
-        "format-en": "us",
-        "format-tr": "trq",
-        "on-click": "hyprctl switchxkblayout vxe-v87-vxe-v87 next"
-    },
-
-    "custom/theme": {
-      "exec": "fish ~/.config/waybar/theme.fish --status",
-      "on-click": "fish ~/.config/waybar/theme.fish --toggle",
-      "signal": 3,
-      "return-type": "json"
+    "icon-size": 10,
+    "sort-by-number": true,
+    "persistent-workspaces": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": [],
+      "5": []
     }
+  },
+
+  "clock": {
+    "format": "{:%H:%M}",
+    "format-alt": "{:%A, %b %d, %H:%M}",
+    "interval": 1,
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "timezone": "Europe/Paris",
+    "calendar": {
+      "mode"          : "month",
+      "mode-mon-col"  : 3,
+      "on-scroll"     : 1,
+      "format": {
+        "months":     "<span color='#ffead3'><b>{}</b></span>",
+        "days":       "<span color='#ecc6d9'><b>{}</b></span>",
+        "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
+        "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
+        "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
+      }
+    },
+    "actions":  {
+      "on-click-right": "mode",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down"
+    }
+  },
+
+  "pulseaudio": {
+    "format": "{icon}",
+    "format-muted": " ",
+    // "format-bluetooth": "{icon}",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": " ",
+      "phone": "",
+      "phone-muted": "",
+      "portable": "",
+      "car": "",
+      "alsa_output.pci-0000_00_1f.3.analog-stereo": " ",
+      "alsa_output.pci-0000_00_1f.3.analog-stereo-muted": "",
+      "default": ["", ""]
+    },
+    "tooltip-format": "{desc}\nvolume: {volume}%",
+    "on-click": "control --volume",
+    "on-click-middle": "wpctl set-mute @DEFAULT_SINK@ toggle",
+    "scroll-step": 1,
+  },
+
+  "battery": {
+    "bat": "BAT1",
+    "interval": 60,
+    "states": {
+      "warning": 25,
+      "critical": 15
+    },
+    "events": {
+      "on-discharging-warning": "notify-send -u normal 'low battery' 'you have less then 30% battery left'",
+      "on-discharging-critical": "notify-send -u critical 'very low battery' 'you have less then 15% battery left'",
+      "on-charging-100": "notify-send -u normal 'battery full!' 'your battery is fully charged'"
+    },
+    "format": "{icon}",
+    "tooltip-format": "battery: {capacity}%\ntime left: {time}",
+    "on-click": "control --battery",
+    "format-icons": ["\uf244", "\uf243", "\uf242", "\uf241", "\uf240"]
+  },
+
+  "memory": {
+    "interval": 30,
+    "format": "\uf4bc  {used:0.1f}G"
+  },
+
+  "temperature": {
+    "format": "{temperatureC}°C"
+  },
+
+  "network": {
+    "format": "",
+    "on-click": "control --wifi",
+    "format-ethernet": "\udb83\udc9d",
+    "format-wifi": "{icon}",
+    "format-disconnected": "\udb83\udc9c",
+    "format-icons": ["\udb82\udd2f", "\udb82\udd1f", "\udb82\udd22", "\udb82\udd25", "\udb82\udd28"],
+    "tooltip-format-wifi": "{essid} ({signalStrength}%)",
+    "tooltip-format-ethernet": "{ifname}",
+    "tooltip-format-disconnected": "disconnected",
+  },
+
+  "bluetooth": {
+    "format": "\udb80\udcaf",
+    "on-click": "blueman-manager",
+    "format-disabled": "\udb80\udcb2",
+    "format-connected": "\udb80\udcb1",
+    "tooltip-format": "{controller_alias}\t{controller_address}",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
+  },
+
+  "tray": {
+    "icon-size": 16,
+    "spacing": 16
+  },
+
+  "custom/menu": {
+    "format": " ",
+    "tooltip": false,
+    "on-click": "$HOME/.config/rofi/launcher/launcher.sh"
+  },
+
+  "custom/notification": {
+    "tooltip": false,
+    "format": "{} {icon} ",
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "escape": true,
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "format-icons": {
+      "notification": "󱅫",
+      "none": " ",
+      "dnd-notification": " ",
+      "dnd-none": "󰂛 ",
+      "inhibited-notification": " ",
+      "inhibited-none": " ",
+      "dnd-inhibited-notification": " ",
+      "dnd-inhibited-none": " "
+    },
+  },
 }
