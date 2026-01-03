@@ -1,0 +1,13 @@
+new_tab neovim 
+cd /home/evolve/Code/W31/JAM/
+title neovim 
+launch nix develop --command fish -C nvim
+
+new_tab project management
+layout tall
+cd /home/evolve/Code/W31/JAM/
+title php server
+launch --title "php server" nix develop --command fish -C "php artisan serve"
+launch --title shell nix develop --command fish
+
+focus_tab title:neovim

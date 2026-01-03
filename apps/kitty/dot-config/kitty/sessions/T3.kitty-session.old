@@ -1,0 +1,11 @@
+new_tab godot 
+cd /home/evolve/Code/T3-25-SCI25-A/
+title godot 
+launch nix run nixpkgs#godot -- project.godot
+
+new_tab project management
+layout tall
+cd /home/evolve/Code/T3-25-SCI25-A/
+title shell
+
+focus_tab title:shell

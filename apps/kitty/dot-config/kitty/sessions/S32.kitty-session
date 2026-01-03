@@ -4,7 +4,7 @@ cd /home/evolve/Code/S32/
 title neovim 
 launch fish -c "nix develop ~/nix-config#c --command fish -C nvim"
 
-new_tab gradle
+new_tab make
 layout fat
 cd /home/evolve/Code/S32/
 title make and test

@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 
-set session (ls $HOME/.config/kitty/sessions/ | rg -v "^os-.*" | cut -d '.' -f 1 | string replace "-" " " | rofi -dmenu)
-if not set -q session[1]; exit; end
+set session (ls $HOME/.config/kitty/sessions/ | rg -v "(^os-.*)|(.*\.old)" | cut -d '.' -f 1 | string replace "-" " " | rofi -dmenu || exit 0)
+# if not set -q session[1]; exit; end
 echo using the $session kitty session_file
 set session (string replace " " "-" $session)
 set session_file "$HOME/.config/kitty/sessions/$session.kitty-session"
