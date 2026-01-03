@@ -44,7 +44,7 @@ vim.o.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
 ---- tab char
-vim.o.shiftwidth = 2
+vim.o.shiftwidth = 4
 vim.o.expandtab = true
 
 vim.o.scrolloff = 7
@@ -60,8 +60,9 @@ vim.o.confirm = true
 
 -- KEYMAPS --
 
--- save
+-- editing
 vim.keymap.set('n', '<leader>w', ':update<cr>', { desc = 'Save File' })
+vim.keymap.set('n', '<leader>.', '.`[', { desc = 'Repeat last command'})
 
 -- buffer
 
@@ -115,6 +116,7 @@ vim.keymap.set('n', '<leader>tv', function () kb_term('v') end, { desc = 'open t
 vim.keymap.set('n', '<leader>th', function () kb_term('h') end, { desc = 'open terminal in horizontal split window'})
 vim.keymap.set('n', '<c-t>', function () kb_term('h') end)
 -- vim.keymap.set('i', '<c-t>', function () kb_term('h') end)
+vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>")
 
 -- AUTOCOMMAND --
 vim.api.nvim_create_autocmd('TextYankPost', {
