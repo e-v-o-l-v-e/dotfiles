@@ -1,0 +1,26 @@
+#!/usr/bin/env fish
+
+set argc (count $argv)
+if test $argc -eq 0
+  echo "suspend"
+  echo "lock"
+  echo "poweroff"
+  exit
+end
+
+set a $argv[1]
+
+if test $a = "lock"
+  pkill -x rofi
+  hyprlock -q --grace 5 --immediate-render --no-fade-in > /dev/null
+  exit
+else if test $a = "suspend"
+  hyprlock -q --grace 5; systemctl suspend
+  exit
+else if test $a = "poweroff"
+  poweroff
+  exit
+else
+  notify-send "wtf dude ?"
+  exit
+end

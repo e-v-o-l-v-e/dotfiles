@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Power Menu
+Exec=fish -c 'rofi -show picker -modes "picker:power"'
+Comment=Manage system state
+Icon=?
+Terminal=false
+Categories=System;
