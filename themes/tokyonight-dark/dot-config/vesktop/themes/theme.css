@@ -1,173 +1,182 @@
 /**
  * @name current
- * @author ForRealy (fork of Ashtrath's original theme with fixes from thaYt)
- * @version 2.4.0
- * @description A clean, dark Discord port of the V.S. Code Tokyo Night theme.
- * @source https://github.com/ForRealy/Tokyo-Night-fixed
- * @updateUrl https://raw.githubusercontent.com/ForRealy/Tokyo-Night-fixed/main/themes/tokyo-night.theme.css
  */
 
-/* DONT TOUCH THIS!!! */
-@import url("https://raw.githubusercontent.com/ForRealy/Tokyo-Night-fixed/main/src/main.css");
-
-/*  Read this before editing stuff!!!
-*
-*   > To comment or uncomment a line you need to put those "/" and "*" characters as you can see at the beginning and ending of my comments.
-*      (You don't need to put a * at each line like I do, it's just for readability). See more here : https://developer.mozilla.org/en-US/docs/Web/CSS/Comments
-*
-*   > You can play with the values and see how it goes, don't delete "px" after the value if you don't have knowledges in CSS.
-*
-*   > To change the colors, replace the HEX code with the one you picked here : https://htmlcolorcodes.com
-*/
-
-/* ====== Optional Addons ====== */
-@import url("https://raw.githubusercontent.com/ForRealy/Tokyo-Night-fixed/main/src/addons/revert-rebrand.css");
-@import url("https://nyri4.github.io/Discolored/main.css");
-
-/* VSCode User Area, get Visual Studio like user area (Enabled by default)
-  note: this addons doesn't works well with Compact Mode addon,
-  please disable this when using Compact Mode addon */
-@import url("https://raw.githubusercontent.com/ForRealy/Tokyo-Night-fixed/main/src/addons/vscode-user-area.css");
-
-/* Syntax Highlight, get hljs styling with Tokyo Night scheme (Enabled by default) */
-@import url("https://raw.githubusercontent.com/ForRealy/Tokyo-Night-fixed/main/src/addons/syntax-highlight.css");
-
-/* Username Background, get colorful background behind username on chat, works best with Monospace addon. (Disabled by default) */
-/* @import url("https://raw.githubusercontent.com/ForRealy/Tokyo-Night-fixed/main/src/addons/username-background.css"); */
-
-/* Mac Like Titlebar (windows only), get mac style titlebar on windows client (Enabled by default) */
-@import url("https://raw.githubusercontent.com/ForRealy/Tokyo-Night-fixed/main/src/addons/mac-titlebar.css");
-
-/* Compact Mode, hide some UI part on specific windows size,
-  <920px Channel sidebar and member list get hidden, <600px Chat window only. (Disabled by default) */
-/* @import url("https://raw.githubusercontent.com/ForRealy/Tokyo-Night-fixed/main/src/addons/compact-mode.css"); */
-
-/* Monospace, use monospaced font (JetBrains Mono) instead the default one (Disabled by default) */
-/* @import url("https://raw.githubusercontent.com/ForRealy/Tokyo-Night-fixed/main/src/addons/monospace-fonts.css"); */
-
-/* Square Avatar, get square avatar on chat memberlist and user area (Disabled by default) */
-/* @import url("https://raw.githubusercontent.com/ForRealy/Tokyo-Night-fixed/main/src/addons/square-avatar.css"); */
-
-
-/* ==== Discord Variables ==== */
-.theme-dark { /* Dark Mode */
-
-  /*  Header Color  */
-  --header-primary: var(--text-normal);
-  --header-secondary: var(--text-muted);
-
-  /*  Text Color  */
-  --text-normal: #b1bae6;
-  --text-muted: #565f89;
-  --interactive-normal: #5f647e;
-  --interactive-hover: #a2a6c2;
-  --interactive-active: #b5bad1;
-  --interactive-muted: #55576b;
-
-  /* Background Color */
-  --background-primary: #1a1b26;
-  --background-secondary: #171722;
-  --background-secondary-alt: #13131a;
-  --background-tertiary: #16161e;
-  --background-tertiary-alt: var(--background-secondary-alt);
-  --background-accent: #434461;
-  --background-floating: #161620;
-  --background-modifier-hover: #212331c0;
-  --background-modifier-active: #282a3680;
-  --background-modifier-selected: #24263171;
-  --background-modifier-accent: #1e1e29;
-  --background-mentioned: #252836;
-  --border-mentioned: #474c64;
-  --background-mentioned-hover: #2f3344;
-  --accent-color: #7aa2f7;
-
-  /* Folder Color */
-  --folder-color: #202332d0;
-  --folder-color-light: #2f3342d0;
-
-  /* Scrollbars Color */
-  --scrollbar-thin-thumb: transparent;
-  --scrollbar-thin-track: transparent;
-  --scrollbar-auto-thumb: #2b2b46af;
-  --scrollbar-auto-thumb-hover: #27273d85;
-  --scrollbar-auto-track: transparent;
-  --scrollbar-auto-scrollbar-color-thumb: var(--scrollbar-auto-thumb);
-  --scrollbar-auto-scrollbar-color-track: var(--scrollbar-auto-track);
-
-  /* Chat Box Color */
-  --channeltextarea-background: var(--background-secondary);
-  --channeltextarea-background-hover: var(--background-tertiary);
-
-	/* Square avatar addons */
-	--avatar-roundess: 5px;
-
-  /* Mac Titlebar addons */
-  --close-button-color: #e92a2ade;
-  --maximize-button-color: #f7bc1bde;
-  --minimize-button-color: #12db33de;
+ /* Tokyo Night Dark Theme */
+.visual-refresh * {
+    border: unset !important;
+  --activity-card-background: #16161e !important;
+  --autocomplete-bg: #16161e !important;
+  --background-floating: #16161e !important;
+  --background-mentioned: #2a2e3e !important;
+  --background-mentioned-hover: #24283b !important;
+  --background-message-highlight: #2e3b59 !important;
+  --background-message-highlight-hover: #27324e !important;
+  --background-message-hover: #1a1b26 !important;
+  --background-modifier-accent: #2a2e3e !important;
+  --background-modifier-active: #3b4261 !important;
+  --background-modifier-hover: #24283b !important;
+  --background-modifier-selected: #3b4261 !important;
+  --background-primary: #16161e !important;
+  --background-secondary: #1a1b26 !important;
+  --background-tertiary: #24283b !important;
+  --bg-base-primary: #16161e !important;
+  /*--__header-bar-background: #16161e !important; */
+  --bg-overlay-1: #16161e !important;
+  --bg-overlay-2: #16161e !important;
+  --bg-overlay-3: #16161e !important;
+  --bg-base-secondary: #1a1b26 !important;
+  --bg-base-tertiary: #24283b !important;
+  --bg-brand: #7aa2f7 !important;
+  --bg-mod-faint: #1a1b26 !important;
+  --bg-mod-strong: #3b4261 !important;
+  --bg-mod-subtle: #24283b !important;
+  --border-faint: #1a1b26 !important;
+  --border-strong: #3b4261 !important;
+  --border-subtle: #24283b !important;
+  --button-danger-background: #f7768e !important;
+  --button-danger-background-active: #d06c84 !important;
+  --button-danger-background-disabled: #f7768e !important;
+  --button-danger-background-hover: #e06c75 !important;
+  --button-danger-border: #1a1b26 !important;
+  --button-filled-brand-border: #1a1b26 !important;
+  --button-filled-brand-inverted-background-active: #24283b !important;
+  --button-filled-brand-inverted-background-hover: #1a1b26 !important;
+  --button-filled-brand-inverted-text: #c0caf5 !important;
+  --button-filled-white-background-active: #24283b !important;
+  --button-filled-white-background-hover: #1a1b26 !important;
+  --button-filled-white-text: #c0caf5 !important;
+  --button-outline-danger-background: #24283b !important;
+  --button-outline-danger-background-active: #2a2e3e !important;
+  --button-outline-danger-background-hover: #3b4261 !important;
+  --button-outline-danger-border: #1a1b26 !important;
+  --button-outline-danger-border-active: #1a1b26 !important;
+  --button-outline-danger-border-hover: #1a1b26 !important;
+  --button-outline-danger-text: #f7768e !important;
+  --button-outline-danger-text-active: #f7768e !important;
+  --button-outline-danger-text-hover: #f7768e !important;
+  --button-positive-background: #9ece6a !important;
+  --button-positive-background-active: #8bbf5a !important;
+  --button-positive-background-disabled: #9ece6a !important;
+  --button-positive-background-hover: #8bbf5a !important;
+  --button-positive-border: #1a1b26 !important;
+  --button-secondary-background: #24283b !important;
+  --button-secondary-background-active: #2a2e3e !important;
+  --button-secondary-background-disabled: #24283b !important;
+  --button-secondary-background-hover: #3b4261 !important;
+  --button-secondary-text: #c0caf5 !important;
+  --button-transparent-background: #24283b !important;
+  --button-transparent-background-active: #2a2e3e !important;
+  --button-transparent-background-hover: #3b4261 !important;
+  --button-transparent-text: #c0caf5 !important;
+  --card-primary-bg: #16161e !important;
+  --card-secondary-bg: #24283b !important;
+  --channel-icon: #7aa2f7 !important;
+  --channels-default: #7aa2f7 !important;
+  --header-muted: #4e5173 !important;
+  --header-primary: #c0caf5 !important;
+  --header-secondary: #a9b1d6 !important;
+  --icon-muted: #4e5173 !important;
+  --icon-primary: #c0caf5 !important;
+  --icon-secondary: #a9b1d6 !important;
+  --info-danger-background: #2a2e3e !important;
+  --info-danger-text: #f7768e !important;
+  --info-help-background: #2e3b59 !important;
+  --info-help-text: #7aa2f7 !important;
+  --info-positive-background: #2a2e3e !important;
+  --info-positive-text: #9ece6a !important;
+  --info-warning-background: #2a2e3e !important;
+  --info-warning-text: #e0af68 !important;
+  --input-background: #1a1b26 !important;
+  --input-border: #24283b !important;
+  --input-focused-border: #7aa2f7 !important;
+  --input-placeholder-text: #4e5173 !important;
+  --interactive-active: #c0caf5 !important;
+  --interactive-hover: #a9b1d6 !important;
+  --interactive-normal: #7aa2f7 !important;
+  --mention-background: #2e3b59 !important;
+  --mention-foreground: #7aa2f7 !important;
+  --message-reacted-background: #2e3b59 !important;
+  --message-reacted-text: #7aa2f7 !important;
+  --modal-background: #16161e !important;
+  --modal-footer-background: #16161e !important;
+  --premium-nitro-pink-text: #bb9af7 !important;
+  --scrollbar-auto-scrollbar-color-thumb: #4e5173 !important;
+  --scrollbar-auto-scrollbar-color-track: #16161e !important;
+  --scrollbar-auto-thumb: #4e5173 !important;
+  --scrollbar-auto-track: #16161e !important;
+  --scrollbar-thin-thumb: #4e5173 !important;
+  --spine-default: #3b4261 !important;
+  --spoiler-hidden-background: #4e5173 !important;
+  --text-brand: #7aa2f7 !important;
+  --text-link: #7aa2f7 !important;
+  --text-muted: #4e5173 !important;
+  --text-normal: #a9b1d6 !important;
+  --text-positive: #9ece6a !important;
+  --text-primary: #c0caf5 !important;
+  --text-secondary: #a9b1d6 !important;
+  --text-warning: #e0af68 !important;
+  --user-profile-background-hover: #24283b !important;
+  --user-profile-overlay-background: #1a1b26 !important;
+  --user-profile-overlay-background-hover: #24283b !important;
+  --app-background-frame: #16161e !important;
+  --app-border-frame: #24283b !important;
+  --background-base-low: #16161e !important;
+  --background-base-lower: #1a1b26 !important;
+  --background-base-lowest: #24283b !important;
+  --background-code: #1a1b26 !important;
+  --background-code-addition: #2a2e3e !important;
+  --background-code-deletion: #2a2e3e !important;
+  --background-feedback-critical: #2a2e3e !important;
+  --background-feedback-info: #2e3b59 !important;
+  --background-feedback-positive: #2a2e3e !important;
+  --background-feedback-warning: #2a2e3e !important;
+  --background-mod-faint: #1a1b26 !important;
+  --background-mod-normal: #3b4261 !important;
+  --background-mod-strong: #3b4261 !important;
+  --background-mod-subtle: #24283b !important;
+  --background-mod-strong: hsl(var(--opacity-20-hsl) / 0.2) !important;
+  --background-mod-subtle: hsl(var(--opacity-8-hsl) / 0.0784313725490196) !important;
+  --background-surface-high: #16161e !important;
+  --background-surface-higher: #1a1b26 !important;
+  --background-surface-highest: #24283b !important;
+  --border-feedback-critical: #f7768e !important;
+  --border-normal: #24283b !important;
+  --chat-background-default: #16161e !important;
+  --chat-text-muted: #4e5173 !important;
+  --checkbox-background-checked: #7aa2f7 !important;
+  --checkbox-background-default: #1a1b26 !important;
+  --checkbox-border-checked: #7aa2f7 !important;
+  --checkbox-border-default: #24283b !important;
+  --icon-default: #c0caf5 !important;
+  --icon-tertiary: #4e5173 !important;
+  --notice-background-critical: #f7768e !important;
+  --notice-background-info: #7aa2f7 !important;
+  --notice-background-positive: #9ece6a !important;
+  --notice-background-warning: #e0af68 !important;
+  --notice-text-critical: #16161e !important;
+  --notice-text-info: #16161e !important;
+  --notice-text-positive: #16161e !important;
+  --notice-text-warning: #16161e !important;
+  --spoiler-hidden-background-hover: #4e5173 !important;
+  --text-code-addition: #9ece6a !important;
+  --text-code-builtin: #bb9af7 !important;
+  --text-code-bullet: #e0af68 !important;
+  --text-code-comment: #4e5173 !important;
+  --text-code-default: #7aa2f7 !important;
+  --text-code-deletion: #f7768e !important;
+  --text-code-keyword: #f7768e !important;
+  --text-code-section: #7aa2f7 !important;
+  --text-code-string: #9ece6a !important;
+  --text-code-tag: #bb9af7 !important;
+  --text-code-title: #7aa2f7 !important;
+  --text-code-variable: #7aa2f7 !important;
+  --text-default: #a9b1d6 !important;
+  --text-feedback-critical: #f7768e !important;
+  --text-feedback-info: #7aa2f7 !important;
+  --text-feedback-positive: #9ece6a !important;
+  --text-feedback-warning: #e0af68 !important;
+  --text-tertiary: #4e5173 !important;
 }
-
-.theme-light { /* Light Mode */
-
-  /*  Header Color  */
-  --header-primary: var(--text-normal);
-  --header-secondary: var(--text-muted);
-
-  /* Text Color */
-  --text-normal: #2e3338;
-  --text-muted: #747f8d;
-  --interactive-normal: #4c505e;
-  --interactive-hover: #404350;
-  --interactive-active: #373a44;
-  --interactive-muted: #77797c;
-
-  /* Background Color */
-  --background-primary: #d5d6db;
-  --background-secondary: #cecfd4;
-  --background-secondary-alt: #b6b7bd;
-  --background-tertiary: #c5c6cc;
-  --background-tertiary-alt: #bbbbc2;
-  --background-accent: #9ca3bb;
-  --background-floating: #c2c2c9;
-  --background-mentioned: #c4c7da;
-  --background-modifier-hover: #2c2a2a25;
-  --background-modifier-active: #5a525229;
-  --background-modifier-selected: #555e693d;
-  --background-modifier-accent: #06060714;
-  --border-mentioned: #a9afcf;
-  --background-mentioned-hover: #cfd2e9;
-  --accent-color: #365aaa;
-
-  /* Folder Color */
-  --folder-color: #a7a6a6d0;
-  --folder-color-light: #afafafd0;
-
-  /* Input Box Color */
-  --input-box-bg: #c2c2c7;
-  --input-box-border: #b3b4b8;
-  --input-box-border-focus: #959699;
-
-  /* Scrollbars Color */
-  --scrollbar-thin-thumb: transparent;
-  --scrollbar-thin-track: transparent;
-  --scrollbar-auto-thumb: #a0a0a0af;
-  --scrollbar-auto-thumb-hover: #77777785;
-  --scrollbar-auto-track: transparent;
-  --scrollbar-auto-scrollbar-color-thumb: var(--scrollbar-auto-thumb);
-  --scrollbar-auto-scrollbar-color-track: var(--scrollbar-auto-track);
-
-  /* Chat Box Color */
-  --channeltextarea-background: var(--background-secondary);
-  --channeltextarea-background-hover: var(--background-tertiary);
-
-  /* Square avatar addons */
-	--avatar-roundess: 5px;
-
-  /* Mac Titlebar addons */
-  --close-button-color: #e92a2ade;
-  --maximize-button-color: #f7bc1bde;
-  --minimize-button-color: #12db33de;
-  --button-position: row;
-
-}
+/* Tokyo Night Dark Theme */   	
 
