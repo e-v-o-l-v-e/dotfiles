@@ -59,7 +59,7 @@ function set_nvim_theme
     set -U nvim_theme $name
 
     for f in (fd "nvf|nvim" /run/user/1000/)
-        nvim --server $f --remote-send ":colorscheme $nvim_theme<cr>"
+        command nvim --server $f --remote-send ":colorscheme $nvim_theme<cr>"
     end
 end
 

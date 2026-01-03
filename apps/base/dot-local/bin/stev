@@ -1,94 +1,96 @@
 #!/usr/bin/env fish
 
+# check if $dots_path is set
+if not set -q dots_path
+    echo "No dotfiles path given, defaulting to ~/.dotfiles"
+    set -U dots_path $HOME/.dotfiles
+    exit
+end
+
 # functions
 function print_help
-  echo "Description: Simple fish script wrapping stow for evolve's dotfiles"
-  echo ""
-  echo "Usage: stev app1 apps2 [-p your dotfiles forder path]"
-  echo ""
-  echo "Options:"
-  echo "  -h, --help            Show this help message and exit"
-  echo "  -g, --grep PATTERN    Search packages name corresponding to pattern"
-  echo "  -p, --path PATH       PATH to your dotfiles directory, default to ~/.dotfiles"
-  echo ""
-  echo "Modifiers:"
-  echo "  stev -S package       Stow package (default)"
-  echo "  stev -D package       Unstow package"
-  echo "  stev -R package       Restow package"
-  echo ""
-  echo "Examples:"
-  echo "  stev -p ~/.dotfiles"
-  echo "  stev base hyprland gtk kitty"
-  echo ""
-  echo "  # stev is just wrapper, it mimics stow behavior, you can use several -S -D -R option in the same command"
-  echo "  stev waybar -D waybar-square -R gtk"
+    echo "Description: Simple fish script wrapping stow for evolve's dotfiles"
+    echo ""
+    echo "Usage: stev waybar neovim"
+    echo ""
+    echo "Options:"
+    echo "  -h, --help            Show this help message and exit"
+    echo "  -l, --list            List all available packages"
+    echo "  -p, --path [PATH]       PATH to your dotfiles directory, default to ~/.dotfiles"
+    echo "  -g, --grep PATTERN    Search packages name corresponding to pattern"
+    echo ""
+    echo "Modifiers:"
+    echo "  stev -S package       Stow package"
+    echo "  stev -D package       Unstow package"
+    echo "  stev -R package       Restow package (default)"
+    echo ""
+    echo "Examples:"
+    echo "  # set dotfiles path"
+    echo "  stev -p ~/.dotfiles"
+    echo "  # enable some package"
+    echo "  stev base hyprland gtk kitty"
+    echo ""
+    echo "  # stev is just wrapper, it mimics stow behavior: you can use several -S -D -R option in the same command"
+    echo "  stev waybar -D waybar-square -R gtk"
 end
 
 function print_apps
-  ls "$dots_path/apps" -1 --indicator-style=none
+    ls "$dots_path/apps" -1 --indicator-style=none
 end
 
-# check arg number
+# check args number
 if test (count $argv) -lt 1
-  echo "Usage: stev app1 app2 ..."
-  exit
+    echo "Usage: stev app1 app2 ..."
+    exit
 end
 
 # check for options
 set -l i 1
 while test $i -le (count $argv)
-  set arg $argv[$i]
-  set -l next_index (math $i + 1)
+    set current_arg $argv[$i]
+    set -l next_index (math $i + 1)
 
-  if test $arg = "-p" || test $arg = "--path"\)
-    if test $next_index -gt (count $argv)
-      echo "Error: Missing argument for $arg"
-      exit 1
-    end
+    if test $current_arg = -p || test $current_arg = --path
+        if test $next_index -gt (count $argv)
+            echo "current path: $dots_path"
+            exit
+        end
+        # set path (format and convert)
+        set -U dots_path (realpath (string replace -r '^~' $HOME $argv[$next_index]))
+        exit
 
-    # set path (format and convert)
-    set -U dots_path (realpath (string replace -r '^~' $HOME $argv[$next_index]))
+    else if test $current_arg = -h || test $current_arg = --help
+        print_help
+        exit
 
-    # erase both path related args, exit if there is none left after
-    set -e argv[$i]
-    set -e argv[$i]
-    if test (count $argv) -eq 0
-      exit
+    else if test $current_arg = -l || test $current_arg = --list
+        print_apps
+        exit
+
+        # try to use ripgrep, fallback to grep if unavaible
+    else if test $current_arg = -g || test $current_arg = --grep
+        if type -q rg
+            print_apps | rg $argv[$next_index]
+        else
+            print_apps | grep $argv[$next_index]
+        end
+        exit
+
+        # if the script has not exited yet it means it is a package or a modifier
     else
-      continue
+        set packages $packages $current_arg
     end
 
-  else if test $arg = "-h" || test $arg = "--help"
-    print_help
-    exit
-
-  else if test $arg = "-l" || test $arg = "--list"
-    print_apps
-    exit
-
-  # try to use ripgrep, fallback to grep if unavaible
-  else if test $arg = "-g" || test $arg = "--grep"
-    if type -q rg
-      print_apps | rg $argv[$next_index]
-    else
-      print_apps | grep $argv[$next_index]
-    end
-    exit
-
-  # append current arg to cleaned up list
-  else
-    set args $args $arg
-  end
-
-  set i (math $i + 1)
-end
-
-# should not happen, but just in case check if $dots_path is set
-if not set -q dots_path
-  echo "No dotfiles path given, defaulting to ~/.dotfiles"
-  set -U dots_path $HOME/.dotfiles
-  exit
+    set i (math $i + 1)
 end
 
 # apply stow
-stow --dotfiles --dir "$dots_path/apps" --target ~ $args
+stow --dotfiles --dir "$dots_path/apps" --target ~ -R $packages
+
+## breakdown
+# `--dotfiles` because paths start with 'dot-' instead of '.'
+# `--dir` for the source dir
+# '--target ~' because we target the home dir, not directly .config or .local,
+#       which is what allows for such a modular yet simple setup, stow trully is amazing
+#  `-R` default to restow to get that precious 0.1 second not waster on writing -R
+#  `$packages` and finally the list of packages and modifiers
