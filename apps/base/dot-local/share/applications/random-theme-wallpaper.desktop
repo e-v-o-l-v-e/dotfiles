@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Random Themed Wallpaper
+Exec=fish -c "waypaper --random --folder ~/Pictures/Wallpapers/$theme_name"
+Comment=Choose a random wallpaper for current theme
+Icon=?
+Terminal=false
+Categories=Wallpaper;Theme;

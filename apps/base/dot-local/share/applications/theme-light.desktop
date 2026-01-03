@@ -4,3 +4,4 @@ Name=Light Theme
 Exec = fish -c "stev-theme light"
 Icon=󰛨
 Terminal=false
+Categories=Theme;

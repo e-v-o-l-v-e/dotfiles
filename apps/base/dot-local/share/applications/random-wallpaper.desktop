@@ -2,5 +2,7 @@
 Type=Application
 Name=Random Wallpaper
 Exec=waypaper --random
+Comment=Choose a random wallpaper, theme agnostic
 Icon=?
 Terminal=false
+Categories=Wallpaper;Theme;
