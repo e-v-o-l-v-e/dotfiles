@@ -24,6 +24,9 @@ stev kitty hyprland gtk waybar rofi matugen waypaper wlogout
 stev-theme gruvbox dark
 ```
 
+> [!NOTE]
+> My scripts are in the fish language, but they will work regardless of your shell
+
 ## Structure
 ```
 .
