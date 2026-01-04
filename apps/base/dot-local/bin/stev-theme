@@ -1,92 +1,121 @@
 #!/usr/bin/env fish
 
 if not set -q dots_path
-  echo "please set you dots path with stap -p dots_path"
-  exit
+    echo "please set your dotfiles's path with stev -p dots_path"
+    exit 1
 end
 
-# defaults
-set default_name "gruvbox"
-set default_variant "light"
-set theme_dir "$dots_path/themes"
-set wp never
+### defaults
+set -l DEFAULT_NAME gruvbox
+set -l DEFAULT_VARIANT light
+set -l DEFAULT_WP_MODE never
 
-# initialize defaults only if variables are not set, meaning first script run
-if not set -q theme_name;       set -U theme_name $default_name; end
-if not set -q theme_variant;    set -U theme_variant $default_variant; end
-if not set -q set_wallpaper;    set -U set_wallpaper $wp; else; set wp $set_wallpaper; end
+set -g theme_dir "$dots_path/themes"
+set -g use_matugen false
 
-if not set -q wall_dir
-    set -U wall_dir $HOME/Pictures/Wallpapers
-    echo "No wallpaper directory defined, defaulting to ~/Pictures/Wallpapers/"
+### persistent state init
+set -q theme_name || set -U theme_name $DEFAULT_NAME
+set -q theme_variant || set -U theme_variant $DEFAULT_VARIANT
+set -q wallpaper_mode || set -U wallpaper_mode $DEFAULT_WP_MODE
+set -q wall_dir || begin
+    if test -e $HOME/Pictures/Wallpapers
+        set -U wall_dir $HOME/Pictures/Wallpapers
+        echo "No wallpaper directory defined, defaulting to ~/Pictures/Wallpapers/"
+    else
+        echo "No wallpaper directory defined, and ~/Pictures/Wallpapers/ doesn't exist, please set the wallpaper directory with stev-theme --wall-dir"
+    end
 end
 
-
+### functions
 function theme_exists
-    set -l name $argv[1]
-    set -l variant $argv[2]
-    test -e "$theme_dir/$name-$variant"
+    # $argv is the list of args passed to the fonction, not the script
+    test -e "$theme_dir/$argv[1]-$argv[2]"
 end
 
-function print_themes
-  for dir in $dots_path/themes/*
-    echo (path basename $dir) | string replace "-" " "
-  end
+function list_themes
+    for dir in $theme_dir/*
+        path basename $dir | string replace -r '\-light$|\-dark$' ""
+    end | sort | uniq
 end
 
-function set_wallpaper_f
-    if test $wp != "never"
-      set wallpaper (random choice $wall_dir/$theme_name/*)
-        if type -q waypaper
-          waypaper --wallpaper $wallpaper
-        else 
-          swww img $wallpaper
-          if type -q plasma-apply-wallpaperimage; 
-            plasma-apply-wallpaperimage $wallpaper; 
-          end; 
+function pick_wallpaper
+    if test $wallpaper_mode = never
+        echo "$HOME/.wallpaper"
+    else if test $wallpaper_mode = "image"
+        echo $image
+    else
+        set -l files $wall_dir/$theme_name/*
+        if test (count $files) -gt 0
+            random choice $files
+        else
+            echo "$HOME/.wallpaper"
         end
+    end
+end
 
-        if test $wp = "once"; set wp "never"; end
+### actions
+function apply_wallpaper
+    set -l wp (pick_wallpaper)
+
+    if type -q waypaper
+        waypaper --folder "$wall_dir/$theme_name" --wallpaper $wp &>/dev/null
+    else
+        swww img $wp &>/dev/null
+        type -q plasma-apply-wallpaperimage; and plasma-apply-wallpaperimage $wp &>/dev/null
     end
 
-    set -U set_wallpaper $wp
+    test $wallpaper_mode = once; and set -U wallpaper_mode never
 end
 
 function set_nvim_theme
-    set -l name $argv[1]
-    set -l variant $argv[2]
+    set -U nvim_theme $argv[1]
 
-    set -U nvim_theme $name
-
-    for f in (fd "nvf|nvim" /run/user/1000/)
-        command nvim --server $f --remote-send ":colorscheme $nvim_theme<cr>"
+    for sock in (fd "nvf|nvim" /run/user/(id -u)/)
+        nvim --server $sock --remote-send ":colorscheme $nvim_theme<cr>"
     end
 end
 
-function set_theme
+function apply_theme
     stow --dotfiles --dir $dots_path/themes --target ~ -D $theme_previous -S $theme
-    kill -SIGUSR1 (pgrep kitty)
-    set_nvim_theme $theme_name $theme_variant
-    if type -q dconf; dconf write /org/gnome/desktop/interface/color-scheme "'prefer-$theme_variant'"; end
-    if type -q matugen && test -e ~/.wallpaper; matugen image ~/.wallpaper -m $theme_variant -q; end
 
-    set_wallpaper_f
+    kill -SIGUSR1 (pgrep kitty) &>/dev/null
+
+    set_nvim_theme $theme_name
+
+    type -q dconf; and dconf write /org/gnome/desktop/interface/color-scheme "'prefer-$theme_variant'"
+
+    $use_matugen; and type -q matugen; and test -e ~/.wallpaper; and matugen image ~/.wallpaper -m $theme_variant -q &>/dev/null
+
+    apply_wallpaper
 end
 
+### help
 function print_help
-    echo "Usage: stev-theme [theme|variant] [variant] [options]"
+    echo "Usage: stev-theme [theme] [variant] [options]"
+    echo "(args and options's positions don't matter)"
     echo
     echo "Arguments:"
     echo "  theme                 Theme name (e.g. gruvbox, catppuccin)"
     echo "  variant               Theme variant (light or dark)"
     echo
     echo "Options:"
-    echo "  -w, --wallpaper MODE  Set wallpaper behavior:"
-    echo "                        never  - do not stev wallpaper"
-    echo "                        once   - stev wallpaper just this time, then disable"
-    echo "                        always - always stev wallpaper when theme changes"
-    echo "  -l, --list            Show availables themes and exit"
-    echo "  -h, --help            Show this help message and exit"
+    echo "  -h, --help                  Show this help message and exit"
+    echo "  -l, --list                  Show available themes and exit"
+    echo "  -w, --wallpaper-mode MODE   Set wallpaper behavior:"
+    echo "      never                   do not change wallpaper, now and on future theme changes"
+    echo "      once                    change wallpaper just this time, but not on future theme changes"
+    echo "      always                  change wallpaper now and on subsequents theme change or calls to"
+    echo "                                  stev-theme without argument"
+    echo "  -i, --image FILE            set FILE as wallpaper and wallpaper_mode to \"never\""
+    echo "                                  do no use with `-w` as it will take precedence"
+    echo "  --wall-dir DIR              set DIR as wallpaper base directory"
+    echo "  -r, --reset-waypaper        reset waypaper's folder"
+    echo
+    echo "WARNING"
+    echo "For the correctly themed wallpaper change to work the wallpapers must be sorted in"
+    echo "subfolder named identically to the theme in \$dots_path/themes, without the variant."
+    echo "if that is not your case you should disable it with `stev-theme -w never` and rely"
+    echo "on the -i option, or just waypaper"
     echo
     echo "Examples:"
     echo "  stev-theme gruvbox dark"
@@ -95,71 +124,92 @@ function print_help
     echo
 end
 
-
-set local_name $theme_name
-set local_variant $theme_variant
-
-if test (count $argv) -lt 1 && test $set_wallpaper = "never"
-    echo "Usage: stev-theme [theme|variant] [variant] [-w|--wallpaper]"
-    exit 1
+### simple wallpaper change if no args
+if test (count $argv) -eq 0
+    if test $wallpaper_mode = never
+        print_help
+        exit 1
+    else
+        apply_wallpaper
+    end
+    echo exiting now
+    exit 0
 end
 
+### argument parsing
+set -l name $theme_name
+set -l variant $theme_variant
+set -l i 1
 
-set i 1
 while test $i -le (count $argv)
-    set arg $argv[$i]
-    set next_arg $argv[(math $i + 1)]
+    set -l arg $argv[$i]
+    set -l next $argv[(math $i + 1)]
 
-    if test $arg = "-h" || test $arg = "--help"
-        print_help
-        exit
+    switch $arg
+        case -h --help
+            print_help
+            exit
+        case -l --list
+            list_themes
+            exit
 
-    else if test $arg = "-l" || test $arg = "--list"
-        print_themes
-        exit
+        case --wall-dir
+            test -d "$next"; and set -U wall_dir "$next"
+            set i (math $i + 1) # Skip the directory argument
 
-    else if test $arg = "--wall-dir" && test -e $next_arg
-        set -U wall_dir $next_arg
-        set i (math $i + 1)
+        case -w --wallpaper-mode
+            if not string match -qr '^(never|once|always)$' -- "$next"
+                echo "option `-w` requires one of the following"
+                echo "   never   # do not change the wallpaper, now or never"
+                echo "   once    # change wallpaper just this time"
+                echo "   always  # always change wallpaper"
+                exit
+            else
+                set -U wallpaper_mode "$next"
+                set i (math $i + 1) # Skip the mode argument
+                apply_wallpaper 
+            end
 
+        case -f --full-name
+            set parts (string split '-' "$next")
+            set name $parts[1]
+            set variant $parts[2]
+            set i (math $i + 1) # Skip the name argument
 
-    else if test $arg = "light" || test $arg = "dark"
-        set local_variant $arg
+        case -i --image
+            set -g image $next
+            set wallpaper_mode "image"
+            apply_wallpaper
+            set wallpaper_mode "never"
+            set i (math $i + 1) # Skip the file argument
 
-    else if test $arg = "-w" || test $arg = "--wallpaper"
-        if string match -rq $next_arg '^((never)|(once)|(always))$'
-            set wp $next_arg
-            set i (math $i + 1)
-        end
+        case -r --reset-waypaper
+            type -q waypaper; and waypaper --folder "$wall_dir" --wallpaper "$HOME/.wallpaper" &>/dev/null
 
-    else if test $arg = "-f" || test $arg = "--full-name"
-        set full_name (string split '-' $next_arg)
-        set local_name $full_name[1]
-        set local_variant $full_name[2]
-        set i (math $i + 1)
+        case light dark
+            set variant $arg
 
-    else
-        set local_name $argv[$i]
+        case '*'
+            set name $arg
     end
-
     set i (math $i + 1)
 end
 
-
-if theme_exists $local_name $local_variant
-    set -U theme_previous $theme
-
-    set -U theme_name $local_name
-    set -U theme_variant $local_variant
-    set -U theme "$local_name-$local_variant"
-
-    set -U set_wallpaper $wp
-
-    set_theme
-    echo "theme set to: $theme"
-    notify-send -i (swww query | sed -n 's/.*image: \(.*\)$/\1/p') "Theme" $theme
-else
-    echo "Error: theme '$local_name-$local_variant' does not exist in $theme_dir"
+### apply theme
+if not theme_exists $name $variant
+    echo "Error: theme '$name-$variant' does not exist in $theme_dir"
     exit 1
 end
 
+test "$name-$variant" = "$theme"; and exit
+
+set -q theme; and set -U theme_previous $theme
+set -U theme_name $name
+set -U theme_variant $variant
+set -U theme "$name-$variant"
+
+apply_theme
+
+echo "theme set to: $theme"
+notify-send -i (swww query | sed -n 's/.*image: \(.*\)$/\1/p') \
+    Theming "Switched to $theme"

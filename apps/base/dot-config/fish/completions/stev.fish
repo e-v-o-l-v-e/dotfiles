@@ -21,7 +21,7 @@ if set -q dots_path
         if test -d "$dots_path/apps"
             # ls -1 --indicator-style=none "$dots_path/apps"
             # fd -d1 -td --format {/} . "$dots_path/apps"
-            find "$dots_path/apps" -maxdepth 1 -type d -not -empty -printf "%f\n"
+            find "$dots_path/apps" -maxdepth 1 -mindepth 1 -type d -not -empty -printf "%f\n"
         end
     end
 
