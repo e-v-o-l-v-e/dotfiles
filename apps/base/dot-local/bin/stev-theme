@@ -92,23 +92,25 @@ end
 ### help
 function print_help
     echo "Usage: stev-theme [theme] [variant] [options]"
-    echo "(args and options's positions don't matter)"
+    echo "  (order doesn't matter)"
     echo
     echo "Arguments:"
     echo "  theme                 Theme name (e.g. gruvbox, catppuccin)"
     echo "  variant               Theme variant (light or dark)"
     echo
+    echo "stev-theme will respect your current theme/variant if you don't specify one"
+    echo
     echo "Options:"
     echo "  -h, --help                  Show this help message and exit"
     echo "  -l, --list                  Show available themes and exit"
     echo "  -w, --wallpaper-mode MODE   Set wallpaper behavior:"
-    echo "      never                   do not change wallpaper, now and on future theme changes"
-    echo "      once                    change wallpaper just this time, but not on future theme changes"
-    echo "      always                  change wallpaper now and on subsequents theme change or calls to"
+    echo "                       never      do not change wallpaper, now and on future theme changes"
+    echo "                       once       change wallpaper just this time, but not on future theme changes"
+    echo "                       always     change wallpaper now and on subsequents theme change or calls to"
     echo "                                  stev-theme without argument"
     echo "  -i, --image FILE            set FILE as wallpaper and wallpaper_mode to \"never\""
-    echo "                                  do no use with `-w` as it will take precedence"
-    echo "  --wall-dir DIR              set DIR as wallpaper base directory"
+    echo "                                  /!\ do no use with `-w` as it will take precedence"
+    echo "  --wall-dir DIR              set DIR as base wallpapers directory"
     echo "  -r, --reset-waypaper        reset waypaper's folder"
     echo
     echo "WARNING"
