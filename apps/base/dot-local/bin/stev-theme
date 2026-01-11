@@ -39,9 +39,7 @@ function list_themes
 end
 
 function pick_wallpaper
-    if test $wallpaper_mode = never
-        echo "$HOME/.wallpaper"
-    else if test $wallpaper_mode = "image"
+    if test $wallpaper_mode = "image"
         echo $image
     else
         set -l files $wall_dir/$theme_name/*
@@ -60,7 +58,7 @@ function apply_wallpaper
     if type -q waypaper
         waypaper --folder "$wall_dir/$theme_name" --wallpaper $wp &>/dev/null
     else
-        swww img $wp &>/dev/null
+        type -q swww and swww img $wp &>/dev/null
         type -q plasma-apply-wallpaperimage; and plasma-apply-wallpaperimage $wp &>/dev/null
     end
 
@@ -213,5 +211,6 @@ set -U theme "$name-$variant"
 apply_theme
 
 echo "theme set to: $theme"
-notify-send -i (swww query | sed -n 's/.*image: \(.*\)$/\1/p') \
-    Theming "Switched to $theme"
+type -q swww && \
+    notify-send -i (swww query | sed -n 's/.*image: \(.*\)$/\1/p') Theming "Switched to $theme"; exit
+notify-send Theming "Switched to $theme"
