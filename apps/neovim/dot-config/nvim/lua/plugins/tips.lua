@@ -10,7 +10,7 @@ return {
   },
   opts = {
     -- OPTIONAL: Daily tip mode (default: 1)
-    daily_tip = 1,  -- 0 = off, 1 = once per day, 2 = every startup
+    daily_tip = 0,  -- 0 = off, 1 = once per day, 2 = every startup
     -- OPTIONAL: Bookmark symbol (default: "🌟 ")
     bookmark_symbol = "🌟 ",
   },

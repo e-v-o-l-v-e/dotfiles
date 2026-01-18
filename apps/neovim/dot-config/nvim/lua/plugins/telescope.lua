@@ -31,7 +31,12 @@ return {
         },
       },
       defaults = {
-        file_ignore_patterns = { "node_modules", "bin", "build" },
+        file_ignore_patterns = {
+          "node_modules/",
+          "bin/",
+          "build/",
+          "ccls"
+        },
       },
     }
 
@@ -87,7 +92,7 @@ return {
     vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = 'Choose Buffer' })
     vim.keymap.set('n', '<leader>st', builtin.treesitter, { desc = '[S]earch [T]reesitter Symbols' })
 
-    vim.keymap.set('n', '<leader>sf', function ()
+    vim.keymap.set('n', '<leader>sf', function()
       builtin.find_files { find_command = { "fd", ".", "--type", "f", "--hidden", "--follow", "--exclude", ".git" } }
     end, { desc = '[S]earch [F]iles' })
 
