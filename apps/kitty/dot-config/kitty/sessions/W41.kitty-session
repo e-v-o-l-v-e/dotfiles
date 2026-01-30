@@ -1,0 +1,13 @@
+new_tab neovim 
+cd /home/evolve/Code/W41/books/
+title neovim 
+launch nix develop --command fish -C nvim
+
+new_tab project management
+layout tall
+cd /home/evolve/Code/W41/books/
+title bun run dev
+launch --title dev nix develop --command fish -c "bun run dev"
+launch --title "shell" nix develop --command fish
+
+focus_tab title:neovim
