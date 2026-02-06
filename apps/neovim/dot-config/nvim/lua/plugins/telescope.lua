@@ -35,7 +35,8 @@ return {
           "node_modules/",
           "bin/",
           "build/",
-          "ccls"
+          "ccls",
+          "DS_Store"
         },
       },
     }
@@ -113,7 +114,17 @@ return {
     end, { desc = '[S]earch [/] in Open Files' })
 
     vim.keymap.set('n', '<leader>sn', function()
-      builtin.find_files { cwd = vim.fn.stdpath 'config', find_command = { "fd", ".lua", "--type", "f", "--hidden", "--follow", "--exclude", ".git" } }
+      builtin.find_files { cwd = vim.fn.stdpath 'config', find_command = {
+        'fd',
+        '--type', 'f',
+        '--extension', 'lua',
+        '--extension', 'json',
+        '--hidden',
+        '--follow',
+        '--exclude', '.git',
+        '--exclude', 'lazy-lock.json',
+      }
+      }
     end, { desc = '[S]earch [N]eovim files' })
 
     -- Multigrep binding
