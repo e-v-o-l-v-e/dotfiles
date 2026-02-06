@@ -1,0 +1,32 @@
+{
+  "Express global middleware": {
+    "prefix": "appug",
+    "body": [
+      "app.use(${1:async }(req: Request, res: Response, next: NextFunction) => {",
+      "  ${2};",
+      "  next();",
+      "});"
+    ],
+    "description": "Express middleware (TypeScript)"
+  },
+  "Express middleware route": {
+    "prefix": "appur",
+    "body": [
+      "app.use('${1}', ${2:async }(req: Request, res: Response, next: NextFunction) => {",
+      "  ${3};",
+      "  next();",
+      "});"
+    ],
+    "description": "Express middleware (TypeScript)"
+  },
+  "Express get": {
+    "prefix": "appg",
+    "body": [
+      "app.get('/${1}', ${2:async }(req: Request, res: Response) => {",
+      "  ${3};",
+      "});"
+    ],
+    "description": "Express app.get (TypeScript)"
+  }
+}
+
