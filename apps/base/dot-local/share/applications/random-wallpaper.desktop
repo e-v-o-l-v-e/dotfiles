@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 Name=Random Wallpaper
-Exec=waypaper --random
+Exec=fish -c "waypaper --random --folder $wall_dir"
 Comment=Choose a random wallpaper, theme agnostic
 Icon=?
 Terminal=false

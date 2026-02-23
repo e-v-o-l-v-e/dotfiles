@@ -1,0 +1,61 @@
+#!/usr/bin/env fish
+
+## Wallpaper ##
+if not set -q argv[1]
+    echo "Usage: setwal path/to/wallpaper"
+    exit 1
+end
+
+set wallpaper (realpath $argv[1])
+ln -sf $wallpaper $HOME/.wallpaper
+
+## EXTRACT COLOR ##
+# string match -r '\S' removes any empty elements or trailing newlines
+set background_color (ffmpeg -i $wallpaper \
+    -vf "crop=iw:50:0:0,scale=1:1,format=rgb24" \
+    -f rawvideo -loglevel quiet - | od -An -t x1 | string replace -ra '\s' '')
+echo background_color = $background_color
+
+# fallback white text on black bg if color extraction failed
+if test (count $background_color) -eq 0
+    set background_color 000000
+    set text_color ffffff
+else
+    set hex_list (string match -ra '..' $background_color)
+
+    # 2. calculate darkness
+    set r (math "0x$hex_list[1]")
+    set g (math "0x$hex_list[2]")
+    set b (math "0x$hex_list[3]")
+
+    set lightness (math "(0.299 * $r) + (0.587 * $g) + (0.114 * $b)")
+    set lightness_int (math -s 0 $lightness)
+    echo r = $r, g = $g, b = $b, lightness = $lightness_int
+
+
+    # 3. Determine if text should be white or black
+    if test $lightness_int -gt 128
+        set text_color 000000 # light background, dark text
+    else
+        set text_color ffffff # dark background, light text
+    end
+    echo text_color = $text_color
+
+    # 4. determine if transparency is need
+    if test $lightness_int -gt 100 -a $lightness_int -lt 176
+        set transparency 0.5
+    else
+        set transparency 0
+    end
+
+    set background_rgba "rgba($r, $g, $b, $transparency)"
+end
+
+## PREPARE AND WRITE CSS ##
+echo "@define-color background $background_rgba;" > $HOME/.config/waybar/custom-colors.css
+echo "@define-color text_color #$text_color;" >> $HOME/.config/waybar/custom-colors.css
+
+# Refresh Waybar
+pkill -9 waybar
+waybar -l off &
+disown
