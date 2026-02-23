@@ -1,9 +1,9 @@
 {
   "layer": "top",
-  "margin": "0 0 -5 0",
+  "margin": "0 0 -8 0",
   "position": "top",
   "height": 24,
-  "spacing": 2,
+  "spacing": 3,
 
   "modules-left": ["hyprland/workspaces"],
   "modules-center": ["clock"],
@@ -14,7 +14,6 @@
     "bluetooth", 
     "network"
   ],
-
 
   "group/tray": {
     "orientation": "horizontal",
@@ -31,27 +30,31 @@
     "tooltip": false
   },
 
-
   "mpris": {
-      "format": "{status_icon} {title}",
-      "max-length": 25,
-      "status-icons": {
-        "playing": "▶",
-        "paused": "⏸"
-      },
-      "player-icons": {
-        "default": "󰎆 ",
+    "format": "{status_icon} {title}",
+    "max-length": 25,
+    "status-icons": {
+      "playing": "▶",
+      "paused": "⏸"
+    },
+    "player-icons": {
+      "default": "󰎆 ",
         // "cmus": " ",
         // "mpv": "🎵",
         "vlc": "🎬",
         "spotify": " "
-      }
+    }
   },
 
   "hyprland/workspaces": {
     "format": "<span size='larger'>{icon}</span>",
+    // "format": "<span size='small'>{icon}</span>",
+    // "format": "{icon}",
     "on-click": "activate",
     "format-icons": {
+      // "active": "",
+      // "default": ""
+      // "urgent": "",
       "active": "\uf444",
       "default": "\uf4c3"
     },
@@ -94,7 +97,7 @@
   "pulseaudio": {
     "format": "{icon}",
     "format-muted": " ",
-    // "format-bluetooth": "{icon}",
+    "format-bluetooth": "{icon}",
     "format-icons": {
       "headphone": "",
       "hands-free": "",
@@ -108,13 +111,14 @@
       "default": ["", ""]
     },
     "tooltip-format": "{desc}\nvolume: {volume}%",
-    "on-click": "control --volume",
+    "on-click": "pavucontrol",
     "on-click-middle": "wpctl set-mute @DEFAULT_SINK@ toggle",
-    "scroll-step": 1,
+    "scroll-step": 1
   },
 
   "battery": {
     "bat": "BAT1",
+    "on-click": "fish -c \"notify-send (cat /sys/class/power_supply/BAT1/capacity)\"",
     "interval": 60,
     "states": {
       "warning": 25,
@@ -126,9 +130,9 @@
       "on-charging-100": "notify-send -u normal 'battery full!' 'your battery is fully charged'"
     },
     "format": "{icon}",
-    "tooltip-format": "battery: {capacity}%\ntime left: {time}",
-    "on-click": "control --battery",
-    "format-icons": ["\uf244", "\uf243", "\uf242", "\uf241", "\uf240"]
+    "format-charging": "{icon} 󱐋",
+    "format-icons": ["\uf244", "\uf243", "\uf242", "\uf241", "\uf240"],
+    "tooltip-format": "battery: {capacity}%\ntime left: {time}"
   },
 
   "memory": {
@@ -142,7 +146,7 @@
 
   "network": {
     "format": "",
-    "on-click": "control --wifi",
+    "on-click": "networkmanager_dmenu",
     "format-ethernet": "\udb83\udc9d",
     "format-wifi": "{icon}",
     "format-disconnected": "\udb83\udc9c",
@@ -154,10 +158,11 @@
 
   "bluetooth": {
     "format": "\udb80\udcaf",
-    "on-click": "blueman-manager",
-    "on-click-right": "bluetooth toggle",
     "format-disabled": "\udb80\udcb2",
     "format-connected": "\udb80\udcb1",
+    "on-click": "blueman-manager",
+    "min-length": 2,
+    "on-click-right": "bluetooth toggle",
     "tooltip-format": "{controller_alias}\t{controller_address}",
     "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
     "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
