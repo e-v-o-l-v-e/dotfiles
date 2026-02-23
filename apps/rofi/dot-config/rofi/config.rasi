@@ -5,4 +5,5 @@ configuration {
   terminal: "kitty";
   sorting-method: "fzf";
   case-smart: true;
+  ssh-command: "kitty -- kitty +kitten ssh {host}";
 }
