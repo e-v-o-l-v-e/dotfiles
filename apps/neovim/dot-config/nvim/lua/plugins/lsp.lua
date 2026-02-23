@@ -39,19 +39,24 @@ return {
         settings = {
           nixd = {
             nixpkgs = {
-              expr = "import <nixpkgs> { }",
+              -- expr = "import <nixpkgs> { }",
+              expr = "import (builtins.getFlake \"/home/evolve/nix-config\").inputs.nixpkgs { }   ",
             },
             formatting = {
               command = { "nixfmt" },
+              -- command = { "alejandra" },
             },
-            options = {
-              nixos = {
-                expr = '(builtins.getFlake ("git+file://" + toString /home/evolve/nix-config).nixosConfigurations.waylander.options',
-              },
-              home_manager = {
-                expr = '(builtins.getFlake ("git+file://" + toString /home/evolve/nix-config)).homeConfigurations."evolve@waylander".options',
-              },
-            },
+            -- options = {
+            --   flake_parts = {
+            --     expr = "(builtins.getFlake \"/home/evolve/nix-config\").debug.options"
+            --   },
+              --   nixos = {
+              --     expr = '(builtins.getFlake (builtins.getFlake \"github:e-v-o-l-v-e/nix-config\").nixosConfigurations.waylander.options',
+              --   },
+              --   home_manager = {
+              --     expr = '(builtins.getFlake (builtins.getFlake \"github:e-v-o-l-v-e/nix-config\").homeConfigurations."evolve@waylander".options',
+              --   },
+            -- },
           },
         },
       })

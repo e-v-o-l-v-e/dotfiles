@@ -1,6 +1,7 @@
 return {
   "obsidian-nvim/obsidian.nvim",
   version = "*", -- use latest release, remove to use latest commit
+  enable = false,
   ft = "markdown",
   ---@module 'obsidian'
   ---@type obsidian.config

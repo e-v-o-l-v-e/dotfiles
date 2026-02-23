@@ -62,7 +62,7 @@ vim.o.confirm = true
 
 -- editing
 vim.keymap.set('n', '<leader>w', ':update<cr>', { desc = 'Save File' })
-vim.keymap.set('n', '<leader>.', '.`[', { desc = 'Repeat last command'})
+vim.keymap.set('n', '<leader>.', '.`[', { desc = 'Repeat last command' })
 
 -- buffer
 
@@ -82,8 +82,27 @@ vim.keymap.set('n', '<leader>v', ':vs<cr>', { desc = 'Split Window [V]ertically'
 vim.keymap.set('n', '<leader>h', ':split<cr>', { desc = 'Split Window [H]orizontally' })
 
 -- lsp
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
-vim.keymap.set('n', 'grf', ':lua vim.lsp.buf.format()<cr>' , { desc = 'Format buffer' })
+-- lsp
+vim.keymap.set('n', '<leader>q', function()
+  vim.diagnostic.setloclist({
+    severity = {
+      vim.diagnostic.severity.WARN,
+      vim.diagnostic.severity.ERROR
+    }
+  })
+end, { desc = 'Open diagnostic [Q]uickfix list' })
+
+-- vim.keymap.del('n', '<leader>Q')
+vim.keymap.set('n', '<leader>Q', function()
+  vim.diagnostic.setloclist({
+    severity = {
+      vim.diagnostic.severity.INFO,
+      vim.diagnostic.severity.HINT
+    }
+  })
+end, { desc = 'Open diagnostic [Q]uickfix list' })
+
+vim.keymap.set('n', 'grf', ':lua vim.lsp.buf.format()<cr>', { desc = 'Format buffer' })
 
 -- source
 -- vim.keymap.set('n', '<leader>x', ":.lua<CR>", { desc = 'source line' })
@@ -112,9 +131,9 @@ local kb_term = function(loc)
   end
 end
 
-vim.keymap.set('n', '<leader>tv', function () kb_term('v') end, { desc = 'open terminal in vertical split window'})
-vim.keymap.set('n', '<leader>th', function () kb_term('h') end, { desc = 'open terminal in horizontal split window'})
-vim.keymap.set('n', '<c-t>', function () kb_term('h') end)
+vim.keymap.set('n', '<leader>tv', function() kb_term('v') end, { desc = 'open terminal in vertical split window' })
+vim.keymap.set('n', '<leader>th', function() kb_term('h') end, { desc = 'open terminal in horizontal split window' })
+vim.keymap.set('n', '<c-t>', function() kb_term('h') end)
 -- vim.keymap.set('i', '<c-t>', function () kb_term('h') end)
 vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>")
 
