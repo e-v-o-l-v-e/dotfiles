@@ -7,7 +7,9 @@ new_tab project management
 layout tall
 cd /home/evolve/Code/W41/books/
 title bun run dev
-launch --title dev nix develop --command fish -c "bun run dev"
 launch --title "shell" nix develop --command fish
+launch --title dev nix develop --command fish -C "while true; bun run dev; sleep 1; end"
+launch --title studio nix develop --command fish -c "bunx prisma studio"
+launch --title studio nix develop --command fish -c "postman"
 
 focus_tab title:neovim
