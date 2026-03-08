@@ -10,9 +10,10 @@ complete -c stev-theme -o r -l reset-waypaper -d 'reset waypaper\'s default dir'
 
 # wallpaper options
 complete -c stev-theme -n "not __fish_seen_subcommand_from -w --wallpaper" -o w -l wallpaper -d 'set wallpaper behavior'
-complete -c stev-theme -n "__fish_seen_subcommand_from -w --wallpaper; and not __fish_seen_subcommand_from never once always" -x -a never -d 'never change wallpaper'
-complete -c stev-theme -n "__fish_seen_subcommand_from -w --wallpaper; and not __fish_seen_subcommand_from never once always" -x -a once -d 'change wallpaper once'
-complete -c stev-theme -n "__fish_seen_subcommand_from -w --wallpaper; and not __fish_seen_subcommand_from never once always" -x -a always -d 'always change wallpaper'
+complete -c stev-theme -n "__fish_seen_subcommand_from -w --wallpaper; and not __fish_seen_subcommand_from never once always no-once" -x -a never -d 'never change wallpaper'
+complete -c stev-theme -n "__fish_seen_subcommand_from -w --wallpaper; and not __fish_seen_subcommand_from never once always no-once" -x -a once -d 'change wallpaper once'
+complete -c stev-theme -n "__fish_seen_subcommand_from -w --wallpaper; and not __fish_seen_subcommand_from never once always no-once" -x -a always -d 'always change wallpaper'
+complete -c stev-theme -n "__fish_seen_subcommand_from -w --wallpaper; and not __fish_seen_subcommand_from never once always no-once" -x -a no-once -d 'always change wallpaper, just not this time'
 # complete -c stev-theme -n "__fish_seen_subcommand_from -w --wallpaper" -x -a not-now -d 'do not change now, but change next times'
 
 complete -c stev-theme -s i -l image -rF -d 'set IMAGE as wallpaper'

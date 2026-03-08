@@ -39,7 +39,7 @@ function list_themes
 end
 
 function pick_wallpaper
-    if test $wallpaper_mode = "image"
+    if test $wallpaper_mode = image
         echo $image
     else
         set -l files $wall_dir/$theme_name/*
@@ -53,16 +53,23 @@ end
 
 ### actions
 function apply_wallpaper
-    set -l wp (pick_wallpaper)
+    if contains $wallpaper_mode once always image
+        set -l wp (pick_wallpaper)
 
-    if type -q waypaper
-        waypaper --folder "$wall_dir/$theme_name" --wallpaper $wp &>/dev/null
-    else
-        type -q swww and swww img $wp &>/dev/null
-        type -q plasma-apply-wallpaperimage; and plasma-apply-wallpaperimage $wp &>/dev/null
+        if type -q waypaper
+            waypaper --folder "$wall_dir/$theme_name" --wallpaper $wp &>/dev/null
+        else
+            type -q swww and swww img $wp &>/dev/null
+            type -q plasma-apply-wallpaperimage; and plasma-apply-wallpaperimage $wp &>/dev/null
+        end
     end
 
-    test $wallpaper_mode = once; and set -U wallpaper_mode never
+    switch $wallpaper_mode
+        case once
+            set -U wallpaper_mode never
+        case no-once
+            set -U wallpaper_mode always
+    end
 end
 
 function set_nvim_theme
@@ -111,7 +118,7 @@ function print_help
     echo "  --wall-dir DIR              set DIR as base wallpapers directory"
     echo "  -r, --reset-waypaper        reset waypaper's folder"
     echo
-    echo "WARNING"
+    echo WARNING
     echo "For the correctly themed wallpaper change to work the wallpapers must be sorted in"
     echo "subfolder named identically to the theme in \$dots_path/themes, without the variant."
     echo "if that is not your case you should disable it with `stev-theme -w never` and rely"
@@ -158,16 +165,17 @@ while test $i -le (count $argv)
             set i (math $i + 1) # Skip the directory argument
 
         case -w --wallpaper-mode
-            if not string match -qr '^(never|once|always)$' -- "$next"
-                echo "option `-w` requires one of the following"
-                echo "   never   # do not change the wallpaper, now or never"
-                echo "   once    # change wallpaper just this time"
-                echo "   always  # always change wallpaper"
+            if not string match -qr '^(never|(no-)?once|always)$' -- "$next"
+                echo "option `-w` requires one of the following:"
+                echo "   never    # do not change the wallpaper, now or never"
+                echo "   once     # change wallpaper just this time"
+                echo "   always   # always change wallpaper"
+                echo "   no-once  # always change wallpaper, just not this time"
                 exit
             else
                 set -U wallpaper_mode "$next"
                 set i (math $i + 1) # Skip the mode argument
-                apply_wallpaper 
+                apply_wallpaper
             end
 
         case -f --full-name
@@ -178,9 +186,9 @@ while test $i -le (count $argv)
 
         case -i --image
             set -g image $next
-            set wallpaper_mode "image"
+            set wallpaper_mode image
+            echo "when using the '--image' option the \$wallpaper_mode var is set to never"
             apply_wallpaper
-            set wallpaper_mode "never"
             set i (math $i + 1) # Skip the file argument
 
         case -r --reset-waypaper
@@ -211,6 +219,6 @@ set -U theme "$name-$variant"
 apply_theme
 
 echo "theme set to: $theme"
-type -q swww && \
-    notify-send -i (swww query | sed -n 's/.*image: \(.*\)$/\1/p') Theming "Switched to $theme"; exit
+type -q swww && notify-send -i (swww query | sed -n 's/.*image: \(.*\)$/\1/p') Theming "Switched to $theme"
+exit
 notify-send Theming "Switched to $theme"

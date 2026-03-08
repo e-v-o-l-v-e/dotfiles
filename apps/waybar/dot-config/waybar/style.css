@@ -62,7 +62,7 @@ button:hover {
 
 /* you can set a style on hover for any module like this */
 #pulseaudio:hover {
-    color: #3F3F3F;
+    /* color: #3F3F3F; */
 }
 
 #workspaces button {
@@ -134,7 +134,7 @@ button:hover {
 
 #battery.charging,
 #battery.plugged {
-    color: #77ff77;
+    color: @green;
 }
 
 @keyframes blink {
