@@ -1,0 +1,13 @@
+new_tab neovim 
+layout fat
+cd /home/evolve/Code/A41/MyLittlePatisserie/src
+title neovim
+launch fish -c "nix develop github:e-v-o-l-v-e/nix-config#java --command fish -C nvim"
+
+new_tab gradle
+layout fat
+cd /home/evolve/Code/A41/MyLittlePatisserie/
+title gradle
+launch fish -c "nix develop github:e-v-o-l-v-e/nix-config#java --command fish"
+
+focus_tab title:neovim
