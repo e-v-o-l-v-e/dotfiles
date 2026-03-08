@@ -3,7 +3,8 @@
 configuration {
   modes: "drun,window,ssh";
   terminal: "kitty";
-  sorting-method: "fzf";
+  // sorting-method: "fzf";
+  sorting-method: "levenshtein";
   case-smart: true;
   ssh-command: "kitty -- kitty +kitten ssh {host}";
 }
