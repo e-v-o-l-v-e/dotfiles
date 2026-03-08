@@ -150,4 +150,4 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- vim.keymap.del("i", "<c-t>")
 
 
-require 'nvim-treesitter'.install { 'lua', 'nix', 'java', 'c', 'php', 'sql' }
+require 'nvim-treesitter'.install { 'lua', 'nix', 'java', 'c' }

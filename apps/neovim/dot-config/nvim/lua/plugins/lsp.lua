@@ -60,6 +60,17 @@ return {
           },
         },
       })
+
+      vim.lsp.enable('digestif')
+
+      vim.lsp.enable('ltex_plus')
+      vim.lsp.config('ltex_plus', {
+        settings = {
+          ltex = {
+            language = "en-GB",
+          },
+        },
+      })
     end,
   }
 }
