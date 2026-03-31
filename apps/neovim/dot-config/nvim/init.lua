@@ -64,8 +64,33 @@ vim.o.confirm = true
 vim.keymap.set('n', '<leader>w', ':update<cr>', { desc = 'Save File' })
 vim.keymap.set('n', '<leader>.', '.`[', { desc = 'Repeat last command' })
 
--- buffer
+vim.keymap.set("x", "<leader>p", '"_dP', { desc = "Paste without yanking" })
+vim.keymap.set({ "n", "v" }, "<leader>x", '"_d', { desc = "Delete without yanking" })
 
+vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { desc = "Move line down" })
+vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { desc = "Move line up" })
+vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
+vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
+
+vim.keymap.set("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position" })
+
+-- better movement in wrapped text
+vim.keymap.set("n", "j", function()
+  return vim.v.count == 0 and "gj" or "j"
+end, { expr = true, silent = true, desc = "Down (wrap-aware)" })
+vim.keymap.set("n", "k", function()
+  return vim.v.count == 0 and "gk" or "k"
+end, { expr = true, silent = true, desc = "Up (wrap-aware)" })
+
+vim.keymap.set("n", "<leader>mw", ":set wrap!<cr>", { desc = "Toggle wrap mode" })
+
+-- search
+vim.keymap.set("n", "n", "nzzzv", { desc = "Next search result (centered)" })
+vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous search result (centered)" })
+vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Half page down (centered)" })
+vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
+
+-- buffer
 vim.keymap.set('n', '<leader>bn', ':bn<cr>', { desc = ' [B]uffer [N]ext' })
 vim.keymap.set('n', '<leader>bp', ':bp<cr>', { desc = ' [B]uffer [P]revious' })
 vim.keymap.set('n', '<leader>bd', ':bd<cr>', { desc = ' [B]uffer [D]elete' })
@@ -82,7 +107,6 @@ vim.keymap.set('n', '<leader>v', ':vs<cr>', { desc = 'Split Window [V]ertically'
 vim.keymap.set('n', '<leader>h', ':split<cr>', { desc = 'Split Window [H]orizontally' })
 
 -- lsp
--- lsp
 vim.keymap.set('n', '<leader>q', function()
   vim.diagnostic.setloclist({
     severity = {
@@ -92,7 +116,11 @@ vim.keymap.set('n', '<leader>q', function()
   })
 end, { desc = 'Open diagnostic [Q]uickfix list' })
 
--- vim.keymap.del('n', '<leader>Q')
+
+vim.keymap.set("n", "<leader>td", function()
+  vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+end, { desc = "Toggle diagnostics" })
+
 vim.keymap.set('n', '<leader>Q', function()
   vim.diagnostic.setloclist({
     severity = {
@@ -110,6 +138,42 @@ vim.keymap.set('n', 'grf', ':lua vim.lsp.buf.format()<cr>', { desc = 'Format buf
 vim.keymap.set('n', '<leader>x', "<cmd>source %<CR>", { desc = 'source file' })
 
 -- terminal
+-- ======================
+-- AUTOCOMMANDS
+-- ======================
+local augroup = vim.api.nvim_create_augroup("UserConfig", { clear = true })
+
+vim.api.nvim_create_autocmd("BufReadPost", {
+  group = augroup,
+  desc = "Restore last cursor position",
+  callback = function()
+    if vim.o.diff then -- except in diff mode
+      return
+    end
+
+    local last_pos = vim.api.nvim_buf_get_mark(0, '"') -- {line, col}
+    local last_line = vim.api.nvim_buf_line_count(0)
+
+    local row = last_pos[1]
+    if row < 1 or row > last_line then
+      return
+    end
+
+    pcall(vim.api.nvim_win_set_cursor, 0, last_pos)
+  end,
+})
+
+-- wrap, linebreak and spellcheck on markdown and text files
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup,
+  pattern = { "markdown", "text", "gitcommit" },
+  callback = function()
+    vim.opt_local.wrap = true
+    vim.opt_local.linebreak = true
+    vim.opt_local.spell = true
+  end,
+})
+
 vim.api.nvim_create_autocmd('TermOpen', {
   group = vim.api.nvim_create_augroup('custom-term-open', { clear = true }),
   callback = function()

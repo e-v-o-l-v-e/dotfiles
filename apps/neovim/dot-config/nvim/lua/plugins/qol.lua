@@ -20,6 +20,7 @@ return {
     config = function()
       require("tabout").setup {
         ignore_beginning = true,
+        exclude = { "md" }, -- TODO act as tab when the next char is space
       }
     end,
   }
