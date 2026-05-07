@@ -2,7 +2,7 @@ new_tab neovim
 layout fat
 cd /home/evolve/Code/2048/src/
 title neovim 
-launch fish -c "nix develop github:e-v-o-l-v-e/nix-config#c --command fish -C nvim"
+launch fish -c "nix develop github:e-v-o-l-v-e/nix-config#c --command fish -C 'nvim -O game.c client.c'"
 
 new_tab make
 layout fat

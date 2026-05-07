@@ -1,0 +1,14 @@
+new_tab android_studio
+cd /home/evolve/Code/p42-abc/app/src/main/java/com/example/p42_abc/
+title android studio
+launch "android-studio" fish -c "set NIXPKGS_ALLOW_UNFREE 1; nix run nixpkgs#android-studio --impure"
+
+new_tab project management
+layout tall
+cd /home/evolve/Code/p42-abc/books-api/
+title bun run dev
+launch --title "shell" fish -C "cd ..; nix develop ../W41 --command fish -C set-abbr"
+launch --title "api" nix develop ../../W41 --command fish -C "bun run dev"
+launch --title "prisma studio" nix develop ../../W41 --command fish -C "bunx prisma studio"
+
+focus_tab title:shell

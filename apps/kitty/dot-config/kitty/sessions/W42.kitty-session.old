@@ -1,0 +1,13 @@
+new_tab neovim 
+cd /home/evolve/Code/W42/TP4
+title neovim 
+launch nix develop --command fish -C "nvim src/main.tsx"
+
+new_tab project management
+layout tall
+cd /home/evolve/Code/W42/TP4
+title bun run dev
+launch --title "shell" nix develop --command fish
+launch --title dev nix develop --command fish -c "clear; while true; bun run dev; sleep 1; end"
+
+focus_tab title:neovim
