@@ -171,6 +171,7 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.wrap = true
     vim.opt_local.linebreak = true
     vim.opt_local.spell = true
+    vim.opt_local.spelllang="en,fr"
   end,
 })
 
@@ -201,6 +202,9 @@ vim.keymap.set('n', '<c-t>', function() kb_term('h') end)
 -- vim.keymap.set('i', '<c-t>', function () kb_term('h') end)
 vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>")
 
+vim.keymap.set('n', 'mm', 'z=1<cr>')
+vim.keymap.set('n', 'mf', 'z=')
+
 -- AUTOCOMMAND --
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
@@ -215,3 +219,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 
 require 'nvim-treesitter'.install { 'lua', 'nix', 'java', 'c' }
+
+require("config.pack")
+require("config.center-buffer")

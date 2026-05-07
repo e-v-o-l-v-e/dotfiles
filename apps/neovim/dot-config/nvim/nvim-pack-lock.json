@@ -1,0 +1,8 @@
+{
+  "plugins": {
+    "centerpad.nvim": {
+      "rev": "666641d02fd8c58ac401c1fb6bf596bb00b815fb",
+      "src": "https://github.com/smithbm2316/centerpad.nvim"
+    }
+  }
+}

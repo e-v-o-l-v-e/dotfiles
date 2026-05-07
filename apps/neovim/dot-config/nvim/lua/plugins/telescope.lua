@@ -92,6 +92,7 @@ return {
     vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[S]earch Find [B]uffers' })
     vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = 'Choose Buffer' })
     vim.keymap.set('n', '<leader>st', builtin.treesitter, { desc = '[S]earch [T]reesitter Symbols' })
+    -- vim.keymap.set('n', )
 
     vim.keymap.set('n', '<leader>sf', function()
       builtin.find_files { find_command = { "fd", ".", "--type", "f", "--hidden", "--follow", "--exclude", ".git" } }
@@ -113,6 +114,7 @@ return {
       }
     end, { desc = '[S]earch [/] in Open Files' })
 
+
     vim.keymap.set('n', '<leader>sn', function()
       builtin.find_files { cwd = vim.fn.stdpath 'config', find_command = {
         'fd',
@@ -126,6 +128,27 @@ return {
       }
       }
     end, { desc = '[S]earch [N]eovim files' })
+
+    vim.keymap.set('n', '<leader>so', function() SearchNixFiles(false) end, { desc = '[S]earch Nix[o]s modules files' })
+    vim.keymap.set('n', '<leader>sO', function() SearchNixFiles(true) end, { desc = '[S]earch all Nix[O]s files' })
+
+    SearchNixFiles = function(root)
+      local cwd
+      if root then
+        cwd = '$HOME/nix-config/'
+      else
+        cwd = '$HOME/nix-config/modules'
+      end
+
+      builtin.find_files { cwd = cwd, find_command = {
+        'fd',
+        '--type', 'f',
+        '--extension', 'nix',
+        '--hidden',
+        '--exclude', '.git'
+      } }
+    end
+
 
     -- Multigrep binding
     vim.keymap.set('n', '<leader>sm', function()
