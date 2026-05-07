@@ -5,7 +5,10 @@
   "height": 24,
   "spacing": 3,
 
-  "modules-left": ["hyprland/workspaces"],
+  "modules-left": [
+    "hyprland/workspaces", 
+    "group/mpris"
+  ],
   "modules-center": ["clock"],
   "modules-right": [
     "group/tray", 
@@ -30,12 +33,28 @@
     "tooltip": false
   },
 
+  "group/mpris": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 250,
+      "transition-left-to-right": true,
+      "click-to-reveal": false
+    },
+    "modules": [ "custom/mpris-drawer", "mpris" ]
+  },
+
+  "custom/mpris-drawer": {
+    "format": "󰎆 ",
+    "tooltip": false
+  },
+
   "mpris": {
     "format": "{status_icon} {title}",
+    "format-stopped": "",
     "max-length": 25,
     "status-icons": {
-      "playing": "▶",
-      "paused": "⏸"
+      // "playing": "▶",
+      // "paused": "⏸"
     },
     "player-icons": {
       "default": "󰎆 ",

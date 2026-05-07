@@ -3,7 +3,7 @@
 
 * {
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: JetBrainsMono Nerd Font, Helvetica, Arial, sans-serif;
+    font-family: Fira, Daddy Time Mono Nerd Font, JetBrainsMono Nerd Font, Helvetica, Arial, sans-serif;
     font-size: 15px;
 }
 
@@ -35,6 +35,10 @@ window#waybar.solo {
     background-color: #FFFFFF;
 }
 */
+
+#mpris {
+    padding-left: 0;
+}
 
 window#waybar.termite {
     background-color: #3F3F3F;
