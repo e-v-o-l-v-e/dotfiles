@@ -1,0 +1,90 @@
+/**
+ * @name current
+ * @description clair-obscur light
+ * @author evolve
+ * @version 1.0.0
+ * @source https://github.com/refact0r/midnight-discord/blob/master/midnight.theme.css
+*/
+
+@import url('https://refact0r.github.io/midnight-discord/build/midnight.css');
+
+/* customize things here */
+:root {
+	/* font, change to 'gg sans' for default discord font*/
+	--font: 'figtree';
+
+	/* top left corner text */
+	--corner-text: 'Midnight';
+
+	/* color of status indicators and window controls */
+	--online-indicator: #555555;
+	--dnd-indicator: #cc0000;
+	--idle-indicator: #aaaaaa;
+	--streaming-indicator: #888888;
+
+	/* accent colors */
+	--accent-1: #444444;
+	--accent-2: #555555;
+	--accent-3: #555555;
+	--accent-4: #f5f5f5;
+	--accent-5: #d0d0d0;
+	--mention: #f5f5f5;
+	--mention-hover: #eeeeee;
+
+	/* text colors */
+	--text-0: #ffffff;
+	--text-1: #000000;
+	--text-2: #000000;
+	--text-3: #333333;
+	--text-4: #555555;
+	--text-5: #888888;
+
+	/* background and dark colors */
+	--bg-1: #555555;
+	--bg-2: #ebebeb;
+	--bg-3: #f5f5f5;
+	--bg-4: #ffffff;
+	--hover: #e8e8e8;
+	--active: #e0e0e0;
+	--message-hover: #f8f8f8;
+
+	/* amount of spacing and padding */
+	--spacing: 8px;
+
+	/* animations */
+	--list-item-transition: 0.2s ease;
+	--unread-bar-transition: 0.2s ease;
+	--moon-spin-transition: 0.4s ease;
+	--icon-spin-transition: 1s ease;
+
+	/* corner roundness (border-radius) */
+	--roundness-xl: 22px;
+	--roundness-l: 20px;
+	--roundness-m: 16px;
+	--roundness-s: 12px;
+	--roundness-xs: 10px;
+	--roundness-xxs: 8px;
+
+	/* direct messages moon icon */
+	--discord-icon: none;
+	--moon-icon: block;
+	--moon-icon-url: url('https://upload.wikimedia.org/wikipedia/commons/c/c4/Font_Awesome_5_solid_moon.svg');
+	--moon-icon-size: auto;
+
+	/* filter uncolorable elements to fit theme */
+	--login-bg-filter: saturate(0) brightness(1.2);
+	--green-to-accent-3-filter: saturate(0) brightness(0.5);
+	--blurple-to-accent-3-filter: saturate(0) brightness(0.5);
+}
+
+/* Selected chat/friend text */
+.selected_f5eb4b,
+.selected_f6f816 .link_d8bfb3 {
+  color: var(--text-0) !important;
+  background: var(--accent-3) !important;
+}
+
+.selected_f6f816 .link_d8bfb3 * {
+  color: var(--text-0) !important;
+  fill: var(--text-0) !important;
+}
