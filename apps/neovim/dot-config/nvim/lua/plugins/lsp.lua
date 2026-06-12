@@ -32,6 +32,7 @@ return {
       -- vim.lsp.enable('rnix')
       -- vim.lsp.enable('nil_ls')
       vim.lsp.enable('fish_lsp')
+      vim.lsp.enable('qmlls')
 
       vim.lsp.enable('prismals')
       vim.lsp.enable('ccls')
@@ -39,6 +40,8 @@ return {
       vim.lsp.enable('phpactor')
       vim.lsp.enable('jdtls')
       vim.lsp.enable('ts_ls')
+
+      vim.lsp.enable('tinymist')
 
       -- vim.lsp.enable('gdscript')
 
@@ -91,10 +94,24 @@ return {
         vim.diagnostic.jump({ count = -1 })
       end, { desc = "go to previous diagnostic" })
 
+
+
+
       -- vim.lsp.enable('clangd')
+
       vim.lsp.config('clangd', {
         cmd = { "clangd", "--clang-tidy", "-j=5", "--malloc-trim" },
         filetypes = { "c" }
+      })
+
+      vim.lsp.config('lua_ls', {
+        settings = {
+          Lua = {
+            format = {
+              enable = true,
+            },
+          },
+        },
       })
 
       vim.lsp.config('nixd', {

@@ -57,7 +57,7 @@ return {
 
           local pieces = vim.split(prompt, '%s+', { trimempty = true })
           local args = { 'rg', '--color=never', '--no-heading', '--with-filename', '--line-number', '--column',
-            '--smart-case' }
+            '--smart-case', '--follow' }
 
           if pieces[1] then
             vim.list_extend(args, { '-e', pieces[1] })
@@ -85,17 +85,20 @@ return {
     vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
     vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
     vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-    vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
     vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
     vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
     vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files' })
     vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[S]earch Find [B]uffers' })
     vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = 'Choose Buffer' })
     vim.keymap.set('n', '<leader>st', builtin.treesitter, { desc = '[S]earch [T]reesitter Symbols' })
-    -- vim.keymap.set('n', )
+    vim.keymap.set('n', '<leader>sg', function()
+      local vimgrep_arguments = { unpack(require('telescope.config').values.vimgrep_arguments) }
+      table.insert(vimgrep_arguments, '--follow')
+      builtin.live_grep({ vimgrep_arguments = vimgrep_arguments, })
+    end, { desc = '[S]earch by [G]rep' })
 
     vim.keymap.set('n', '<leader>sf', function()
-      builtin.find_files { find_command = { "fd", ".", "--type", "f", "--hidden", "--follow", "--exclude", ".git" } }
+      builtin.find_files { find_command = { "fd", ".", "--type", "f", "--follow", "--exclude", ".git" } }
     end, { desc = '[S]earch [F]iles' })
 
     vim.keymap.set('n', '<leader>bs', builtin.buffers, { desc = ' [B]uffers [S]earch' })

@@ -36,6 +36,9 @@ return {
       ---@type render.md.UserConfig
       opts = {},
       config = function()
+
+      vim.api.nvim_set_keymap("n", "<leader>mp", "<CMD>RenderMarkdown toggle<CR>", { desc = "Toggles `render-markdown` preview" });
+
         require('render-markdown').setup({
           completions = { lsp = { enabled = true } },
           code = {

@@ -130,7 +130,7 @@ vim.keymap.set('n', '<leader>Q', function()
   })
 end, { desc = 'Open diagnostic [Q]uickfix list' })
 
-vim.keymap.set('n', 'grf', ':lua vim.lsp.buf.format()<cr>', { desc = 'Format buffer' })
+-- vim.keymap.set('n', 'grf', ':lua vim.lsp.buf.format()<cr>', { desc = 'Format buffer' })
 
 -- source
 -- vim.keymap.set('n', '<leader>x', ":.lua<CR>", { desc = 'source line' })
@@ -171,7 +171,7 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.wrap = true
     vim.opt_local.linebreak = true
     vim.opt_local.spell = true
-    vim.opt_local.spelllang="en,fr"
+    vim.opt_local.spelllang = "en,fr"
   end,
 })
 
@@ -214,6 +214,17 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- typst
+vim.api.nvim_create_autocmd('BufWritePost', {
+  desc = 'auto export PDF when saving typst file',
+  pattern = '*.typ',
+  group = vim.api.nvim_create_augroup('lsp-typst-export-pdf', {}),
+  callback = function()
+    vim.cmd('LspTinymistExportPdf')
+  end
+})
+
+
 -- disabled default keybinds
 -- vim.keymap.del("i", "<c-t>")
 
@@ -221,4 +232,3 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 require 'nvim-treesitter'.install { 'lua', 'nix', 'java', 'c' }
 
 require("config.pack")
-require("config.center-buffer")
