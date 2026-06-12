@@ -1,0 +1,1 @@
+/home/evolve/.config/hypr/lua/monitors-mirror.lua

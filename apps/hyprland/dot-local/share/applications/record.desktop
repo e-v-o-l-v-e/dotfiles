@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Start/Stop Recording
+Exec=/home/evolve/.config/hypr/scripts/record.sh --fullscreen-sound
+Icon=
+Terminal=false

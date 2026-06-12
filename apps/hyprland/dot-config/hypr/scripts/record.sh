@@ -22,17 +22,17 @@ if pgrep wf-recorder > /dev/null; then
     pkill wf-recorder &
 else
     if [[ "$1" == "--fullscreen-sound" ]]; then
-        notify-send "Starting recording" 'recording_'"$(getdate)"'.mp4' -a 'Recorder' & disown
+        notify-send "Starting recording" '/Videos/recording_'"$(getdate)"'.mp4' -a 'Recorder' & disown
         wf-recorder -o "$(getactivemonitor)" --pixel-format yuv420p -f './recording_'"$(getdate)"'.mp4' -t --audio="$(getaudiooutput)"
     elif [[ "$1" == "--fullscreen" ]]; then
-        notify-send "Starting recording" 'recording_'"$(getdate)"'.mp4' -a 'Recorder' & disown
+        notify-send "Starting recording" '/Videos/recording_'"$(getdate)"'.mp4' -a 'Recorder' & disown
         wf-recorder -o "$(getactivemonitor)" --pixel-format yuv420p -f './recording_'"$(getdate)"'.mp4' -t
     else
         if ! region="$(slurp 2>&1)"; then
             notify-send "Recording cancelled" "Selection was cancelled" -a 'Recorder' & disown
             exit 1
         fi
-        notify-send "Starting recording" 'recording_'"$(getdate)"'.mp4' -a 'Recorder' & disown
+        notify-send "Starting recording" '/Videos/recording_'"$(getdate)"'.mp4' -a 'Recorder' & disown
         if [[ "$1" == "--sound" ]]; then
             wf-recorder --pixel-format yuv420p -f './recording_'"$(getdate)"'.mp4' -t --geometry "$region" --audio="$(getaudiooutput)"
         else

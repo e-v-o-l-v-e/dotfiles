@@ -8,4 +8,6 @@ end
 
 set mode $argv[1]
 
-ln -sf ~/.config/hypr/land/monitors{-$mode,}.conf
+ln -sf ~/.config/hypr/lua/monitors{-$mode,}.lua
+
+hyprctl reload

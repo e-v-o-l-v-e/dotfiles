@@ -1,0 +1,8 @@
+require("lua.env")
+require("lua.lib")
+require("lua.keybinds")
+require("lua.general")
+require("lua.rules")
+require("lua.workspaces")
+require("lua.execs")
+require("lua.monitors")
