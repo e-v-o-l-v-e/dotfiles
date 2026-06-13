@@ -1,0 +1,13 @@
+new_tab neovim 
+layout fat
+cd /home/evolve/OpenCloud/Personal/10_Cours/Stage/rapport/
+title neovim
+launch nvim rapport.typ
+
+new_tab zathura
+layout fat
+cd /home/evolve/OpenCloud/Personal/10_Cours/Stage/rapport/
+title zathura
+launch zathura rapport.pdf
+
+focus_tab title:neovim
